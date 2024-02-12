@@ -1,0 +1,7 @@
+{
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=827846
+  "recommendations": ["Codeium.codeium","Gruntfuggly.activitusbar","Angular.ng-template","cyrilletuzi.angular-schematics",
+"johnpapa.Angular2","formulahendry.auto-close-tag","steoates.autoimport","formulahendry.auto-rename-tag","aaron-bond.better-comments"
+,"usernamehw.errorlens","usernamehw.errorlens","VisualStudioExptTeam.intellicode-api-usage-examples","PKief.material-icon-theme",
+"mintlify.document","quicktype.quicktype","pmneo.tsimporter"]
+}
