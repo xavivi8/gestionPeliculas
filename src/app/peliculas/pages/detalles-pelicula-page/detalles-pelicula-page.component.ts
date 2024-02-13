@@ -28,7 +28,7 @@ export class DetallesPeliculaPageComponent implements OnInit {
     this.activatedRoute.params.pipe(
       switchMap(({ id }) => this.peliculasService.getFilmById(id))
     ).subscribe(peli => {
-      //if (!peli) return this.router.navigate(['/peliculas/search'])
+      if (!peli) return this.router.navigate(['/peliculas/search'])
 
       this.pelicula = peli
       console.log('Pelicula: ' + this.pelicula)
