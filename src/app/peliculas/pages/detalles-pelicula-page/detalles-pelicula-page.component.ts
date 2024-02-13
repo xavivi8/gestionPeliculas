@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Pelicula } from '../../interfaces/peliculas.interfaces';
+import { PeliculaService } from '../../services/peliculas.service';
 
 @Component({
   selector: 'app-detalles-pelicula-page',
@@ -7,10 +8,12 @@ import { Pelicula } from '../../interfaces/peliculas.interfaces';
   styles: [
   ]
 })
-export class DetallesPeliculaPageComponent {
-  public pelicula: Pelicula | undefined;
+export class DetallesPeliculaPageComponent implements OnInit{
+  public pelicula: Pelicula | undefined | null;
 
-  constructor() {
+  constructor(
+    private peliculasService: PeliculaService,
+  ) {
     // Definir valores predefinidos para la película
     this.pelicula = {
       adult: false,
@@ -28,5 +31,8 @@ export class DetallesPeliculaPageComponent {
       vote_average: 8.5,
       vote_count: 100
     };
+  }
+  ngOnInit(): void {
+    this.pelicula = this.peliculasService.getPeliculaSeleccionada();
   }
 }

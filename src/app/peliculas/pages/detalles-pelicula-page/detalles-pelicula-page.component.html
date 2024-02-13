@@ -5,7 +5,7 @@
       <mat-card-title>{{pelicula.title}}</mat-card-title>
       <mat-card-subtitle>{{pelicula.release_date| fechaFormato}}</mat-card-subtitle>
     </mat-card-header>
-    <img mat-card-image [src]="pelicula.poster_path| imagePelicula">
+    <img mat-card-image style="max-width: 47%; max-height: 47%;" [src]="pelicula.poster_path| imagePelicula">
   </mat-card>
 
   <mat-card class="col-12 sm:col-6">
