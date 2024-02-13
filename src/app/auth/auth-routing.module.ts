@@ -1,13 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { EmailValidationComponent } from './pages/email-validation/email-validation.component';
 import { LoginComponent } from './pages/login/login.component';
 
 const routes: Routes = [
   {
-    path: '', component: EmailValidationComponent,
+    path: '', component: LoginComponent,
     children: [
-      { path: 'email', component: EmailValidationComponent },
       { path: 'login', component: LoginComponent }
     ]
   }
