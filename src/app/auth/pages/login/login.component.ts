@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
 import { EmailValidationPipe } from '../../pipe/email-validation.pipe';
@@ -9,7 +9,7 @@ import { EmailValidationPipe } from '../../pipe/email-validation.pipe';
   styles: [
   ]
 })
-export class LoginComponent {
+export class LoginComponent  implements OnInit{
   showContent: boolean = false;
   isLinear = false;
   public isValidEmail: boolean = false;

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { PeliculaService } from '../../services/peliculas.service';
 import { FormControl } from '@angular/forms';
 import { Pelicula } from '../../interfaces/peliculas.interfaces';
@@ -9,11 +9,19 @@ import { Pelicula } from '../../interfaces/peliculas.interfaces';
   styles: [
   ]
 })
-export class SearchPageComponent {
+export class SearchPageComponent implements OnInit{
 
   constructor(
     private peliculasService: PeliculaService
   ){}
+
+  ngOnInit(): void {
+    this.peliculasService.getFilmByName("Peliculas").subscribe( root => {
+      if (root == undefined) return;
+      console.log(root)
+      this.peliculas = root.results;
+    })
+  }
 
   public searchInput = new FormControl('');
   public peliculas: Pelicula[] = []
