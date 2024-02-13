@@ -1,4 +1,4 @@
-export interface Root {
+export interface Resultado {
   page: number
   results: Pelicula[]
   total_pages: number
