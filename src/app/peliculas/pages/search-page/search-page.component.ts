@@ -27,7 +27,7 @@ export class SearchPageComponent {
     this.peliculasService.getFilmByName(value).subscribe( root => {
       if (root == undefined) return;
       console.log(root)
-      this.peliculas = this.peliculas.concat(root.results);
+      this.peliculas = root.results;
     })
   }
 }

@@ -7,13 +7,19 @@ import { SearchPageComponent } from './pages/search-page/search-page.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FavPageComponent } from './pages/fav-page/fav-page.component';
 import { HomePageComponent } from './pages/home-page/home-page.component';
+import { CardPeliculaComponent } from './components/card-pelicula/card-pelicula.component';
+import { PeliculaImagePipe } from './pipe/pelicula-image.pipe';
+import { FechaFormatoPipe } from './pipe/fecha-formato.pipe';
 
 
 @NgModule({
   declarations: [
     SearchPageComponent,
     FavPageComponent,
-    HomePageComponent
+    HomePageComponent,
+    CardPeliculaComponent,
+    PeliculaImagePipe,
+    FechaFormatoPipe
   ],
   imports: [
     CommonModule,
