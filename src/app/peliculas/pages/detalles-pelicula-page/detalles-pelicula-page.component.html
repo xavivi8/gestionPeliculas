@@ -15,7 +15,8 @@
       <p>Idioma Original: {{ pelicula.original_language }}</p>
       <p>Promedio de Votos: {{ pelicula.vote_average }}</p>
       <p>Total de Votos: {{ pelicula.vote_count }}</p>
-      <p>Adulto: {{ pelicula.adult }}</p>
+      <p *ngIf="pelicula.adult">Para adultos</p>
+      <p *ngIf="!pelicula.adult">Para todos los públicos</p>
       <p *ngIf="pelicula.genre_ids">IDs de Género: {{ pelicula.genre_ids.join(', ') }}</p>
     </mat-card-content>
   </mat-card>
