@@ -8,28 +8,32 @@
       </mat-grid-list>
     </ng-template>
 
-    <div class="grid" *ngIf="showContent; else divLoading">
-      <div class="col-12 sm:col-6">
+    <div class="d-flex justify-content-center" *ngIf="showContent; else divLoading">
+      <div class="col-6 sm:col-6">
         <mat-stepper orientation="vertical" [linear]="isLinear" #stepper>
           <!-- step de validación de email -->
           <mat-step [stepControl]="emailForm">
             <form [formGroup]="emailForm">
               <ng-template matStepLabel>Email</ng-template>
-              <!-- input email -->
-              <mat-form-field>
-                <mat-label>Correo electrónico</mat-label>
-                <input type="email" matInput required formControlName="email">
-                <mat-error *ngIf="!isValidEmail && emailForm.get('email')?.invalid">
-                  El correo electrónico no es válido.
-                </mat-error>
-              </mat-form-field>
               <div>
+                <!-- input email -->
+                <mat-form-field>
+                  <mat-label>Correo electrónico</mat-label>
+                  <input type="email" matInput required formControlName="email">
+                  <mat-error *ngIf="!isValidEmail && emailForm.get('email')?.invalid">
+                    El correo electrónico no es válido.
+                  </mat-error>
+                </mat-form-field>
+              </div>
+
+              <div [style]="{'margin-top': '30px'}" >
                 <button mat-flat-button matStepperNext [color]="isValidEmail ? 'primary' : 'warn'"
-                  [disabled]="!emailForm.valid" type="submit">Siguiente</button>
+                  [disabled]="!emailForm.valid" (click)="onSubmit(stepper)">Siguiente</button>
               </div>
             </form>
           </mat-step>
           <!-- step de login-->
+
           <mat-step>
 
           </mat-step>

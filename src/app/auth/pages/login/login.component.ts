@@ -20,7 +20,7 @@ export class LoginComponent {
   constructor(
     private emailValidationPipe: EmailValidationPipe,
     private _formBuilder: FormBuilder
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     setTimeout(() => {
@@ -31,6 +31,19 @@ export class LoginComponent {
     this.emailForm = this._formBuilder.group({
       email: ['', Validators.required]
     });
+
+    // Suscripción al cambio del campo de correo electrónico
+    this.emailForm.get('email')?.valueChanges.subscribe(() => {
+      this.handleEmailInputChange();
+    });
+  }
+
+  handleEmailInputChange() {
+    if (this.emailForm.invalid) return;
+
+    this.isValidEmail = this.emailValidationPipe.transform(this.emailForm.value.email);
+    console.log(this.isValidEmail);
+
   }
 
   onSubmit(stepper: MatStepper) {
