@@ -1,0 +1,22 @@
+<!-- detalles-pelicula-page.component.html -->
+<div class="grid" *ngIf="pelicula">
+  <mat-card class="col-12 sm:col-6">
+    <mat-card-header>
+      <mat-card-title>{{pelicula.title}}</mat-card-title>
+      <mat-card-subtitle>{{pelicula.release_date| fechaFormato}}</mat-card-subtitle>
+    </mat-card-header>
+    <img mat-card-image [src]="pelicula.poster_path| imagePelicula">
+  </mat-card>
+
+  <mat-card class="col-12 sm:col-6">
+    <mat-card-content>
+      <p>{{ pelicula.overview }}</p>
+      <p>Popularidad: {{ pelicula.popularity }}</p>
+      <p>Idioma Original: {{ pelicula.original_language }}</p>
+      <p>Promedio de Votos: {{ pelicula.vote_average }}</p>
+      <p>Total de Votos: {{ pelicula.vote_count }}</p>
+      <p>Adulto: {{ pelicula.adult }}</p>
+      <p *ngIf="pelicula.genre_ids">IDs de Género: {{ pelicula.genre_ids.join(', ') }}</p>
+    </mat-card-content>
+  </mat-card>
+</div>
