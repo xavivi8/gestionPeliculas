@@ -5,7 +5,10 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 
 export class FechaFormatoPipe implements PipeTransform {
-  transform(fecha: string): string {
+  transform(fecha: string | undefined): string {
+    if (fecha === undefined) {
+      return 'Sin fecha de estreno';
+    }
     if (!fecha || !/^\d{4}-\d{2}-\d{2}$/.test(fecha)) {
       return ''; // Devuelve cadena vacía si la fecha no está en el formato esperado
     }
