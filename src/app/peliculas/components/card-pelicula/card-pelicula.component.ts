@@ -8,10 +8,17 @@ import { Pelicula } from '../../interfaces/peliculas.interfaces';
   ]
 })
 export class CardPeliculaComponent implements OnInit {
+  fav:boolean = false;
   @Input()
   public pelicula!: Pelicula;
 
   ngOnInit(): void {
     if (!this.pelicula) throw new Error('Pelicula no existe');
+  }
+
+  addFav(){
+    this.fav = !this.fav
+    console.log(this.fav);
+
   }
 }
