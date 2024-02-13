@@ -17,7 +17,7 @@
   </mat-card-content>
 
   <mat-card-actions>
-    <button mat-raised-button color="primary">Más</button>
+    <button mat-raised-button color="primary" (click)="mas()">Más</button>
     <span class="spacer"></span>
     <button mat-icon-button [color]="!fav ? '' : 'warn'" (click)="addFav()">
       <mat-icon>favorite</mat-icon>

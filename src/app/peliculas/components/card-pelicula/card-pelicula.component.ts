@@ -1,5 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Pelicula } from '../../interfaces/peliculas.interfaces';
+import { Router } from '@angular/router';
+import { PeliculaService } from '../../services/peliculas.service';
 
 @Component({
   selector: 'peliculas-card-pelicula',
@@ -12,6 +14,11 @@ export class CardPeliculaComponent implements OnInit {
   @Input()
   public pelicula!: Pelicula;
 
+  constructor(
+    private peliculasService: PeliculaService,
+    private router: Router
+  ) { }
+
   ngOnInit(): void {
     if (!this.pelicula) throw new Error('Pelicula no existe');
   }
@@ -20,5 +27,10 @@ export class CardPeliculaComponent implements OnInit {
     this.fav = !this.fav
     console.log(this.fav);
 
+  }
+
+  mas(){
+    this.peliculasService.setPeliculaSeleccionada(this.pelicula);
+    this.router.navigate(['./peliculas/datalles']);
   }
 }
