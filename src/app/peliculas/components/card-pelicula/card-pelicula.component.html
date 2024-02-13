@@ -10,7 +10,7 @@
   <mat-card-content>
     <h4>{{pelicula.release_date | fechaFormato}}</h4>
 
-    <p>Votación: {{ pelicula.vote_average }}</p>
+    <p>Valoración: {{ pelicula.vote_average }}</p>
 
     <p *ngIf="pelicula.adult">Para adultos</p>
     <p *ngIf="!pelicula.adult">Para todos los públicos</p>
@@ -19,6 +19,8 @@
   <mat-card-actions>
     <button mat-raised-button color="primary">Más</button>
     <span class="spacer"></span>
-    <button>Favoritos</button>
+    <button mat-icon-button [color]="!fav ? '' : 'warn'" (click)="addFav()">
+      <mat-icon>favorite</mat-icon>
+    </button>
   </mat-card-actions>
 </mat-card>
