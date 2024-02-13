@@ -27,8 +27,9 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
 
 ## Apuntes
-  1. Crear módulo con routing ```ng g m nombreModulo --routing```
-  2. Crear componentes con solo el ts component y el html ```ng g c nombreComponente --inline-style --skip-tests```
+  1. Crear proyecto en la versión 16 ```npx @angular/cli@16 new nombreProyecto```
+  2. Crear módulo con routing ```ng g m nombreModulo --routing```
+  3. Crear componentes con solo el ts component y el html ```ng g c nombreComponente --inline-style --skip-tests```
 
 ## Dev
   1. Clonar el proyecto
