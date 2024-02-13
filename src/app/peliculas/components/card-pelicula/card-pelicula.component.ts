@@ -31,6 +31,6 @@ export class CardPeliculaComponent implements OnInit {
 
   mas(){
     this.peliculasService.setPeliculaSeleccionada(this.pelicula);
-    this.router.navigate(['./peliculas/datalles']);
+    this.router.navigate([`./peliculas/datalles/${this.pelicula.id}`]);
   }
 }
