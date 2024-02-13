@@ -10,6 +10,7 @@ import { HomePageComponent } from './pages/home-page/home-page.component';
 import { CardPeliculaComponent } from './components/card-pelicula/card-pelicula.component';
 import { PeliculaImagePipe } from './pipe/pelicula-image.pipe';
 import { FechaFormatoPipe } from './pipe/fecha-formato.pipe';
+import { DetallesPeliculaPageComponent } from './pages/detalles-pelicula-page/detalles-pelicula-page.component';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { FechaFormatoPipe } from './pipe/fecha-formato.pipe';
     HomePageComponent,
     CardPeliculaComponent,
     PeliculaImagePipe,
-    FechaFormatoPipe
+    FechaFormatoPipe,
+    DetallesPeliculaPageComponent
   ],
   imports: [
     CommonModule,
