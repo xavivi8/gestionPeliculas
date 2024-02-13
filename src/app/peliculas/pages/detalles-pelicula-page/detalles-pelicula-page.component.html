@@ -17,7 +17,6 @@
       <p>Total de Votos: {{ pelicula.vote_count }}</p>
       <p *ngIf="pelicula.adult">Para adultos</p>
       <p *ngIf="!pelicula.adult">Para todos los públicos</p>
-      <p *ngIf="pelicula.genre_ids">IDs de Género: {{ pelicula.genre_ids.join(', ') }}</p>
     </mat-card-content>
   </mat-card>
 </div>

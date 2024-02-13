@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Pelicula } from '../../interfaces/peliculas.interfaces';
 import { PeliculaService } from '../../services/peliculas.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { switchMap } from 'rxjs';
+import { ResultadoID } from '../../interfaces/peliculas-id.interfaces';
 
 @Component({
   selector: 'app-detalles-pelicula-page',
@@ -8,31 +11,29 @@ import { PeliculaService } from '../../services/peliculas.service';
   styles: [
   ]
 })
-export class DetallesPeliculaPageComponent implements OnInit{
-  public pelicula: Pelicula | undefined | null;
+export class DetallesPeliculaPageComponent implements OnInit {
+  public pelicula: ResultadoID | undefined | null;
 
   constructor(
     private peliculasService: PeliculaService,
+    private activatedRoute: ActivatedRoute,
+    private router: Router,
+
   ) {
     // Definir valores predefinidos para la película
-    this.pelicula = {
-      adult: false,
-      backdrop_path: '/ejemplo_backdrop_path.jpg',
-      genre_ids: [1, 2],
-      id: 123,
-      original_language: 'en',
-      original_title: 'Ejemplo de Película',
-      overview: 'Esta es una película de ejemplo.',
-      popularity: 7.8,
-      poster_path: '/ejemplo_poster_path.jpg',
-      release_date: '2023-01-01',
-      title: 'Ejemplo de Película',
-      video: false,
-      vote_average: 8.5,
-      vote_count: 100
-    };
+
   }
   ngOnInit(): void {
-    this.pelicula = this.peliculasService.getPeliculaSeleccionada();
+    /* this.pelicula = this.peliculasService.getPeliculaSeleccionada(); */
+    this.activatedRoute.params.pipe(
+      switchMap(({ id }) => this.peliculasService.getFilmById(id))
+    ).subscribe(peli => {
+      //if (!peli) return this.router.navigate(['/peliculas/search'])
+
+      this.pelicula = peli
+      console.log('Pelicula: ' + this.pelicula)
+      console.log('Peli: ' + peli);
+      return;
+    })
   }
 }
