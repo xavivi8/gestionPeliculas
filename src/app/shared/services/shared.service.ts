@@ -21,4 +21,10 @@ export class SharedService {
     });
   }
 
+  getHeaders() {
+    return new HttpHeaders({
+      'Content-Type':  'application/json',
+      Authorization: `Bearer ${localStorage.getItem('token')}`
+    });
+  }
 }
