@@ -14,25 +14,27 @@
         <mat-stepper orientation="vertical" [linear]="isLinear" #stepper>
           <!-- step de validación de email -->
           <mat-step [stepControl]="emailForm">
-            <mat-card>
+            <mat-card class="example-card">
               <mat-card-header>
                 <ng-template matStepLabel>Email</ng-template>
               </mat-card-header>
               <mat-card-content>
-                <form [formGroup]="emailForm">
-                    <!-- input email -->
-                    <mat-form-field>
+                <form [formGroup]="emailForm" class="example-form">
+                  <!-- input email -->
+                  <div class="form-group">
+                    <mat-form-field class="example-full-width">
                       <mat-label>Correo electrónico</mat-label>
                       <input type="email" matInput required formControlName="email">
                       <mat-error *ngIf="!isValidEmail && emailForm.get('email')?.invalid">
                         El correo electrónico no es válido.
                       </mat-error>
                     </mat-form-field>
+                  </div>
                 </form>
               </mat-card-content>
               <mat-card-actions [style]="{'margin-top': '30px'}">
                 <button mat-flat-button matStepperNext [color]="isValidEmail ? 'primary' : 'warn'"
-                      [disabled]="!emailForm.valid" (click)="onSubmit(stepper)">Siguiente</button>
+                  [disabled]="!emailForm.valid" (click)="onSubmit(stepper)">Siguiente</button>
               </mat-card-actions>
             </mat-card>
           </mat-step>
@@ -48,14 +50,14 @@
                   <form class="example-form" [formGroup]="loginForm">
                     <div class="form-group">
                       <mat-form-field class="example-full-width">
-                        <input matInput class="form-control full-width-input" placeholder="Correo electrónico"
-                          formControlName="username" type="text" required>
+                        <input matInput placeholder="Correo electrónico" formControlName="username" type="text"
+                          required>
                       </mat-form-field>
                     </div>
                     <div class="form-group">
                       <mat-form-field class="example-full-width">
-                        <input matInput class="form-control full-width-input" placeholder="Contraseña"
-                          formControlName="password" #input2 type="password" name="password" required>
+                        <input matInput placeholder="Contraseña" formControlName="password" #input2 type="password"
+                          name="password" required>
                       </mat-form-field>
                     </div>
                     <mat-card-actions>
