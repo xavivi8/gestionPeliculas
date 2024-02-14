@@ -97,13 +97,15 @@ export class LoginComponent  implements OnInit{
     if (this.loginForm.valid) {
 
       const data = this.loginForm.value;
+      console.log(data);
+
       const RESPONSE = await this.authService.doLogin(data).toPromise();
-        // console.log(response);
+        console.log(  RESPONSE);
         if (RESPONSE === undefined) return;
       if (RESPONSE.ok) {
         if (RESPONSE.data.token) {
           // this.cookieService.set('token', RESPONSE.data.token);
-          // console.log('ya he puesto el token');
+          console.log('ya he puesto el token');
           localStorage.setItem('token', RESPONSE.data.token);
           localStorage.setItem('usuario', RESPONSE.data.usuario);
           localStorage.setItem('nombre_publico', RESPONSE.data.nombre_publico);
