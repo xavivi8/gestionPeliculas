@@ -10,55 +10,70 @@
 
     <div class="d-flex justify-content-center" *ngIf="showContent; else divLoading">
       <div class="col-6 sm:col-6">
+
         <mat-stepper orientation="vertical" [linear]="isLinear" #stepper>
           <!-- step de validación de email -->
           <mat-step [stepControl]="emailForm">
-            <form [formGroup]="emailForm">
-              <ng-template matStepLabel>Email</ng-template>
-              <div>
-                <!-- input email -->
-                <mat-form-field>
-                  <mat-label>Correo electrónico</mat-label>
-                  <input type="email" matInput required formControlName="email">
-                  <mat-error *ngIf="!isValidEmail && emailForm.get('email')?.invalid">
-                    El correo electrónico no es válido.
-                  </mat-error>
-                </mat-form-field>
-              </div>
-
-              <div [style]="{'margin-top': '30px'}" >
+            <mat-card>
+              <mat-card-header>
+                <ng-template matStepLabel>Email</ng-template>
+              </mat-card-header>
+              <mat-card-content>
+                <form [formGroup]="emailForm">
+                    <!-- input email -->
+                    <mat-form-field>
+                      <mat-label>Correo electrónico</mat-label>
+                      <input type="email" matInput required formControlName="email">
+                      <mat-error *ngIf="!isValidEmail && emailForm.get('email')?.invalid">
+                        El correo electrónico no es válido.
+                      </mat-error>
+                    </mat-form-field>
+                </form>
+              </mat-card-content>
+              <mat-card-actions [style]="{'margin-top': '30px'}">
                 <button mat-flat-button matStepperNext [color]="isValidEmail ? 'primary' : 'warn'"
-                  [disabled]="!emailForm.valid" (click)="onSubmit(stepper)">Siguiente</button>
-              </div>
+                      [disabled]="!emailForm.valid" (click)="onSubmit(stepper)">Siguiente</button>
+              </mat-card-actions>
+            </mat-card>
+          </mat-step>
+
+          <!-- step de login-->
+          <mat-step [stepControl]="loginForm">
+            <form [formGroup]="loginForm">
+              <mat-card class="example-card">
+                <mat-card-header>
+                  <ng-template matStepLabel>Login</ng-template>
+                </mat-card-header>
+                <mat-card-content>
+                  <form class="example-form" [formGroup]="loginForm">
+                    <div class="form-group">
+                      <mat-form-field class="example-full-width">
+                        <input matInput class="form-control full-width-input" placeholder="Correo electrónico"
+                          formControlName="username" type="text" required>
+                      </mat-form-field>
+                    </div>
+                    <div class="form-group">
+                      <mat-form-field class="example-full-width">
+                        <input matInput class="form-control full-width-input" placeholder="Contraseña"
+                          formControlName="password" #input2 type="password" name="password" required>
+                      </mat-form-field>
+                    </div>
+                    <mat-card-actions>
+                      <button type="submit" mat-raised-button class="azulVeo" (click)="acceder()">Acceder</button>
+                      <!-- <button type="button" mat-raised-button class="azulVeo" (click)="formularioRecuperacion = !formularioRecuperacion">
+                            Olvidé mi contraseña
+                        </button> -->
+                      <!-- <button type="button" mat-raised-button class="azulVeo" (click)="forgotPassword()">
+                        Olvidé mi contraseña
+                      </button> -->
+                    </mat-card-actions>
+                  </form>
+                  <!-- <mat-spinner [style.display]="showSpinner ? 'block' : 'none'"></mat-spinner> -->
+                </mat-card-content>
+              </mat-card>
             </form>
           </mat-step>
-          <!-- step de login-->
-
-          <mat-step>
-
-          </mat-step>
         </mat-stepper>
-        <!-- input email -->
-        <!-- <form class="grid" [formGroup]="emailForm" (ngSubmit)="onSubmit()">
-
-          <mat-form-field class="col-12 sm:col-6">
-            <mat-label>Correo electrónico</mat-label>
-            <input type="email" matInput required formControlName="email">
-            <mat-error *ngIf="!isValidEmail && emailForm.get('email')?.invalid">
-              El correo electrónico no es válido.
-            </mat-error>
-
-          </mat-form-field>
-
-          <!-- Botones -->
-        <!--<div class="flex justify-content-between" *ngIf="emailForm?.valid">
-            <button mat-flat-button [color]="isValidEmail ? 'primary' : 'warn'" [disabled]="!emailForm.valid"
-              type="submit">Siguiente</button>
-          </div>
-
-        </form> -->
-
-
       </div>
 
     </div>
