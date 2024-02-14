@@ -97,7 +97,7 @@ export class LoginComponent  implements OnInit{
     if (this.loginForm.valid) {
 
       const data = this.loginForm.value;
-      console.log(data);
+      console.log(data );
 
       const RESPONSE = await this.authService.doLogin(data).toPromise();
         console.log(  RESPONSE);
