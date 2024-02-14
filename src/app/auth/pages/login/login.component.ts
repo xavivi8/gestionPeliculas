@@ -50,7 +50,7 @@ export class LoginComponent  implements OnInit{
     this.emailForm = this._formBuilder.group({
       email: ['', Validators.required]
     });
-    console.log("Login "+this.loginForm.value);
+
     // Suscripción al cambio del campo de correo electrónico
     this.emailForm.get('email')?.valueChanges.subscribe(() => {
       this.handleEmailInputChange();
@@ -88,6 +88,7 @@ export class LoginComponent  implements OnInit{
   }
 
   async acceder() {
+
     setTimeout(() => {
       this.isLoading = true;
     }, 2000);
@@ -113,6 +114,7 @@ export class LoginComponent  implements OnInit{
             Authorization: `Bearer ${RESPONSE.data.token}`
           });
           this.router.navigate([`/${RESPONSE.data.accion}`]);
+          return;
 
         } else if (RESPONSE.data.valido === 0) {
           this.snackBar.open('Usuario inhabilitado', 'Cerrar', {duration: 5000});
@@ -121,5 +123,10 @@ export class LoginComponent  implements OnInit{
         }
       }
     }
+    this.reloadPage();
+  }
+
+  reloadPage() {
+    this.router.navigateByUrl('/auth/login', { skipLocationChange: true });
   }
 }
