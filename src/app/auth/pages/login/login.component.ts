@@ -17,15 +17,13 @@ import { HttpHeaders } from '@angular/common/http';
 export class LoginComponent  implements OnInit{
   showContent: boolean = false;
   isLinear = false;
+  isLoading = false;
+  private elEmail = '';
   public isValidEmail: boolean = false;
   public emailForm = new FormGroup({
     email: new FormControl(''),
   });
-
-  loginForm = new FormGroup({
-    username: new FormControl(''),
-    password: new FormControl('')
-  });
+  loginForm: FormGroup;
 
 
   constructor(
@@ -35,34 +33,42 @@ export class LoginComponent  implements OnInit{
     private commonService: SharedService,
     private snackBar: MatSnackBar,
     private authService: AuthService
-  ) { }
+  ) {
+    this.loginForm = new FormGroup({
+      username: new FormControl({value: this.elEmail, disabled: true}),
+      password: new FormControl('')
+    });
+  }
 
   ngOnInit(): void {
     setTimeout(() => {
       this.showContent = true;
+      this.isLoading = true;
     }, 2000);
 
     // Inicializa el FormGroup
     this.emailForm = this._formBuilder.group({
       email: ['', Validators.required]
     });
-
+    console.log("Login "+this.loginForm.value);
     // Suscripción al cambio del campo de correo electrónico
     this.emailForm.get('email')?.valueChanges.subscribe(() => {
       this.handleEmailInputChange();
     });
 
-    this.loginForm = this._formBuilder.group({
-      username: ['', Validators.required],
-      password: ['', Validators.required]
-    });
   }
 
   handleEmailInputChange() {
     if (this.emailForm.invalid) return;
 
     this.isValidEmail = this.emailValidationPipe.transform(this.emailForm.value.email);
-    console.log(this.isValidEmail);
+
+    if(this.isValidEmail === true){
+      this.elEmail = this.emailForm.value.email || '';
+      this.loginForm.get('username')?.setValue(this.elEmail);
+      console.log(this.isValidEmail);
+      console.log("Email "+this.emailForm.get('email')?.value);
+    }
 
   }
 
@@ -82,7 +88,11 @@ export class LoginComponent  implements OnInit{
   }
 
   async acceder() {
+    setTimeout(() => {
+      this.isLoading = true;
+    }, 2000);
 
+    this.isLoading = false;
     if (this.loginForm.valid) {
 
       const data = this.loginForm.value;
