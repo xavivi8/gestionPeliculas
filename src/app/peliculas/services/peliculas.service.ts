@@ -29,7 +29,7 @@ export class PeliculaService {
 
   getFilmByName(name: string): Observable<Resultado | undefined> {
 
-    return this.http.get<Resultado>(`${this.urlFilm}search/movie?query=${name}&include_adult=false&language=es-ES&page=1`, { headers: this.sharedService.headersFilm })
+    return this.http.get<Resultado>(`${URL_API_FILM}search/movie?query=${name}&include_adult=false&language=es-ES&page=1`, { headers: this.sharedService.headersFilm })
       .pipe(
         catchError(error => {
           console.error('Error:', error);
@@ -39,7 +39,7 @@ export class PeliculaService {
   }
 
   getFilmById(id: number): Observable<ResultadoID | undefined>{
-    return this.http.get<ResultadoID>(`${this.urlFilm}movie/${id}`, { headers: this.sharedService.headersFilm }).pipe(
+    return this.http.get<ResultadoID>(`${URL_API_FILM}movie/${id}`, { headers: this.sharedService.headersFilm }).pipe(
       catchError(error => {
         console.log('Error: ',error);
         return of(undefined);
