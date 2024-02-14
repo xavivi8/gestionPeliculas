@@ -2,6 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
 import { EmailValidationPipe } from '../../pipe/email-validation.pipe';
+import { Router } from '@angular/router';
+import { SharedService } from 'src/app/shared/services/shared.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { AuthService } from '../../services/auth.service';
+import { HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
@@ -17,9 +22,19 @@ export class LoginComponent  implements OnInit{
     email: new FormControl(''),
   });
 
+  loginForm = new FormGroup({
+    username: new FormControl(''),
+    password: new FormControl('')
+  });
+
+
   constructor(
     private emailValidationPipe: EmailValidationPipe,
-    private _formBuilder: FormBuilder
+    private _formBuilder: FormBuilder,
+    private router: Router,
+    private commonService: SharedService,
+    private snackBar: MatSnackBar,
+    private authService: AuthService
   ) { }
 
   ngOnInit(): void {
@@ -35,6 +50,11 @@ export class LoginComponent  implements OnInit{
     // Suscripción al cambio del campo de correo electrónico
     this.emailForm.get('email')?.valueChanges.subscribe(() => {
       this.handleEmailInputChange();
+    });
+
+    this.loginForm = this._formBuilder.group({
+      username: ['', Validators.required],
+      password: ['', Validators.required]
     });
   }
 
@@ -58,6 +78,38 @@ export class LoginComponent  implements OnInit{
     } else {
       // Si el correo electrónico no es válido, no avanzar y mostrar un mensaje de error
       console.error('El correo electrónico no es válido.');
+    }
+  }
+
+  async acceder() {
+
+    if (this.loginForm.valid) {
+
+      const data = this.loginForm.value;
+      const RESPONSE = await this.authService.doLogin(data).toPromise();
+        // console.log(response);
+        if (RESPONSE === undefined) return;
+      if (RESPONSE.ok) {
+        if (RESPONSE.data.token) {
+          // this.cookieService.set('token', RESPONSE.data.token);
+          // console.log('ya he puesto el token');
+          localStorage.setItem('token', RESPONSE.data.token);
+          localStorage.setItem('usuario', RESPONSE.data.usuario);
+          localStorage.setItem('nombre_publico', RESPONSE.data.nombre_publico);
+          localStorage.setItem('ultimaOpcion', RESPONSE.data.opcion);
+          localStorage.setItem('ultimoGrupo', RESPONSE.data.grupo);
+          this.commonService.headersSge = new HttpHeaders({
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${RESPONSE.data.token}`
+          });
+          this.router.navigate([`/${RESPONSE.data.accion}`]);
+
+        } else if (RESPONSE.data.valido === 0) {
+          this.snackBar.open('Usuario inhabilitado', 'Cerrar', {duration: 5000});
+        } else if (RESPONSE.data.valido === 1) {
+          this.snackBar.open('Usuario o contraseña incorrectas', 'Cerrar', {duration: 5000});
+        }
+      }
     }
   }
 }
