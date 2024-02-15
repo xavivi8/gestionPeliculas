@@ -72,7 +72,9 @@ export class ListUserPageComponent implements OnInit {
     if (RESP && RESP.ok) {
       this.servicioUsuarios.updateUsuario(RESP.data);
       this.dataSource.data = this.servicioUsuarios.usuarios;
+
     }
+    this.reloadPage();
   }
 
   async deleteUsuario(usuario: Usuario) {
@@ -82,6 +84,7 @@ export class ListUserPageComponent implements OnInit {
       this.servicioUsuarios.removeUsuario(RESP.data);
       this.dataSource.data = this.servicioUsuarios.usuarios;
     }
+    this.reloadPage();
   }
 
   createFilter(): (usuario: any, filter: string) => boolean {
@@ -127,5 +130,9 @@ export class ListUserPageComponent implements OnInit {
     event.value === 'todos' ? value = event.value : value = Number(event.value);
     this.filterValues.habilitado = value;
     this.dataSource.filter = JSON.stringify(this.filterValues);
+  }
+
+  reloadPage() {
+    this.router.navigateByUrl('/user-management/list', { skipLocationChange: true });
   }
 }
