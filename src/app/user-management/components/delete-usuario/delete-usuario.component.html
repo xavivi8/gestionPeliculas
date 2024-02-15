@@ -1,1 +1,21 @@
-<p>delete-usuario works!</p>
+<div class="container">
+  <mat-card class="card">
+    <!-- Cabecera -->
+    <mat-card-header style="margin: 0 auto;">
+      <mat-card-title>Borrar usuario</mat-card-title>
+    </mat-card-header>
+    <!-- Contenido -->
+    <mat-card-content style="margin: 0 auto;">
+      <p><strong style="color: red;">¡Atención! Se eliminará el usuario:</strong> {{usuario.usuario}} </p>
+
+      <p> Esto sirve para eliminar usuarios creados por error, en otro caso es recomendable deshabilitar el usuario
+        desde el panel de editar.</p>
+    </mat-card-content>
+    <!-- Acciones -->
+    <mat-card-actions style="margin: 0 auto;">
+      <button id="deleteUser" mat-button type="submit" (click)="deleteUser()">Eliminar</button>
+      <span class="spacer"></span>
+      <button id="onNoClick" mat-button (click)="onNoClick()" tabindex="-1">Cancelar</button>
+    </mat-card-actions>
+  </mat-card>
+</div>
