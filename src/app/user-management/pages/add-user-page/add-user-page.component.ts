@@ -1,26 +1,27 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Rol } from '../../interfaces/rol.interface';
 import { RolsService } from '../../service/rols.service';
 import { UserService } from '../../service/user.service';
 import { firstValueFrom } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-user-page',
   templateUrl: './add-user-page.component.html',
-  styles: [
-  ]
+  styleUrls: ['./add-user-page.component.css']
 })
 export class AddUserPageComponent {
   usuarioForm: FormGroup = new FormGroup({});
   roles: Rol[] = [];
 
-  constructor(public dialogRef: MatDialogRef<AddUserPageComponent>,
-              private servicioRoles: RolsService,
-              private servicioUsuario: UserService,
-              public snackBar: MatSnackBar
+  constructor(
+    private servicioRoles: RolsService,
+    private servicioUsuario: UserService,
+    public snackBar: MatSnackBar,
+    private router: Router,
   ) { }
 
   ngOnInit() {
@@ -49,7 +50,7 @@ export class AddUserPageComponent {
       const RESP = await firstValueFrom(this.servicioUsuario.addUsuario(usuario));
       if (RESP && RESP.ok) {
         this.snackBar.open(RESP.message || '', 'Cerrar', { duration: 5000 });
-        this.dialogRef.close({ ok: RESP.ok, data: RESP.data });
+        this.onNoClick();
       } else {
         this.snackBar.open(RESP?.message || 'Error al agregar usuario', 'Cerrar', { duration: 5000 });
       }
@@ -60,6 +61,6 @@ export class AddUserPageComponent {
 
 
   onNoClick(): void {
-    this.dialogRef.close({ok: false});
+    this.router.navigate(['/user-management/list']);
   }
 }

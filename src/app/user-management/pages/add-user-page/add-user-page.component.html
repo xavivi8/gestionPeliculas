@@ -1,48 +1,57 @@
 <div class="container">
-  <h3 mat-dialog-title>Añadir usuario</h3>
+  <mat-card class="card">
+    <!-- Cabecera -->
+    <mat-card-header style="margin: 0 auto;">
+      <mat-card-title>Añadir usuario</mat-card-title>
+    </mat-card-header>
+    <!-- Cuerpo -->
+    <mat-card-content style="margin: 0 auto;">
+      <form class="mat-dialog-content" [formGroup]="usuarioForm">
 
-  <form class="mat-dialog-content" [formGroup]="usuarioForm">
-
-      <div class="form">
+        <div class="form">
           <mat-form-field color="accent">
-              <input matInput placeholder="Correo electrónico" formControlName="usuario" name="usuario" required>
+            <input matInput placeholder="Correo electrónico" formControlName="usuario" name="usuario" required>
           </mat-form-field>
-      </div>
+        </div>
 
-      <div class="form">
+        <div class="form">
           <mat-form-field color="accent">
-              <input matInput placeholder="Nombre Público" formControlName="nombre_publico" name="nombre_publico">
+            <input matInput placeholder="Nombre Público" formControlName="nombre_publico" name="nombre_publico">
           </mat-form-field>
-      </div>
+        </div>
 
-      <div class="form">
+        <div class="form">
           <mat-form-field color="accent">
-              <input matInput type="password" placeholder="Contraseña" formControlName="password" name="password" required>
+            <input matInput type="password" placeholder="Contraseña" formControlName="password" name="password"
+              required>
           </mat-form-field>
-      </div>
+        </div>
 
-      <div class="form">
+        <div class="form">
           <mat-form-field>
-              <mat-label>Rol</mat-label>
-              <mat-select formControlName="id_rol">
-                  <mat-option *ngFor="let rol of roles" [value]="rol.id_rol">
-                      {{rol.rol}}
-                  </mat-option>
-              </mat-select>
+            <mat-label>Rol</mat-label>
+            <mat-select formControlName="id_rol">
+              <mat-option *ngFor="let rol of roles" [value]="rol.id_rol">
+                {{rol.rol}}
+              </mat-option>
+            </mat-select>
           </mat-form-field>
-      </div>
+        </div>
 
-      <div class="form">
+        <div class="form">
           <mat-form-field color="accent">
-              <textarea matInput placeholder="Observaciones" formControlName="observaciones"
-                  name="observaciones"></textarea>
+            <textarea matInput placeholder="Observaciones" formControlName="observaciones"
+              name="observaciones"></textarea>
           </mat-form-field>
-      </div>
+        </div>
 
-      <div mat-dialog-actions>
-          <button id="onSubmit" mat-button type="submit"  [disabled]="!usuarioForm.valid" (click)="confirmAdd()">Guardar</button>
-          <button id="onNoClick" mat-button (click)="onNoClick()" tabindex="-1">Cancelar</button>
-      </div>
-
-  </form>
+      </form>
+    </mat-card-content>
+    <!-- Acciones -->
+    <mat-card-actions style="margin: 0 auto;">
+      <button id="onSubmit" mat-button type="submit" [disabled]="!usuarioForm.valid"
+        (click)="confirmAdd()">Guardar</button>
+      <button id="onNoClick" mat-button (click)="onNoClick()" tabindex="-1">Cancelar</button>
+    </mat-card-actions>
+  </mat-card>
 </div>
