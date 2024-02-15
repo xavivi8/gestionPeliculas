@@ -34,9 +34,13 @@ export class LoginComponent  implements OnInit{
     private snackBar: MatSnackBar,
     private authService: AuthService
   ) {
-    this.loginForm = new FormGroup({
-      username: new FormControl({value: this.elEmail, disabled: true}),
-      password: new FormControl('')
+    this.emailForm = this._formBuilder.group({
+      email: ['', [Validators.required, Validators.email]]
+    });
+
+    this.loginForm = this._formBuilder.group({
+      username: [{ value: this.elEmail, disabled: true }, Validators.required],
+      password: ['', Validators.required]
     });
   }
 
@@ -45,11 +49,6 @@ export class LoginComponent  implements OnInit{
       this.showContent = true;
       this.isLoading = true;
     }, 2000);
-
-    // Inicializa el FormGroup
-    this.emailForm = this._formBuilder.group({
-      email: ['', Validators.required]
-    });
 
     // Suscripción al cambio del campo de correo electrónico
     this.emailForm.get('email')?.valueChanges.subscribe(() => {
@@ -60,8 +59,10 @@ export class LoginComponent  implements OnInit{
 
   handleEmailInputChange() {
     if (this.emailForm.invalid) return;
+    console.log("Email: "+this.emailForm.get('email')?.value);
 
     this.isValidEmail = this.emailValidationPipe.transform(this.emailForm.value.email);
+    console.log(this.isValidEmail);
 
     if(this.isValidEmail === true){
       this.elEmail = this.emailForm.value.email || '';
@@ -94,10 +95,12 @@ export class LoginComponent  implements OnInit{
     }, 2000);
 
     this.isLoading = false;
-    if (this.loginForm.valid) {
+    if (this.loginForm.valid && this.isValidEmail) {
+      const username = this.emailForm.value.email;
+      const password = this.loginForm.get('password')?.value;
 
-      const data = this.loginForm.value;
-      console.log(data );
+      const data = { username, password };
+      console.log(data);
 
       const RESPONSE = await this.authService.doLogin(data).toPromise();
         console.log(  RESPONSE);
@@ -107,6 +110,8 @@ export class LoginComponent  implements OnInit{
           // this.cookieService.set('token', RESPONSE.data.token);
           console.log('ya he puesto el token');
           localStorage.setItem('token', RESPONSE.data.token);
+          console.log('token'+RESPONSE.data.token);
+
           localStorage.setItem('usuario', RESPONSE.data.usuario);
           localStorage.setItem('nombre_publico', RESPONSE.data.nombre_publico);
           localStorage.setItem('ultimaOpcion', RESPONSE.data.opcion);
