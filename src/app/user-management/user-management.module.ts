@@ -9,6 +9,8 @@ import { AddUserPageComponent } from './pages/add-user-page/add-user-page.compon
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { EditUsuarioComponent } from './components/edit-usuario/edit-usuario.component';
 import { DeleteUsuarioComponent } from './components/delete-usuario/delete-usuario.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
 
 
 @NgModule({
@@ -23,7 +25,9 @@ import { DeleteUsuarioComponent } from './components/delete-usuario/delete-usuar
     CommonModule,
     UserManagementRoutingModule,
     MaterialModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatTableModule,
+    MatSortModule
   ]
 })
 export class UserManagementModule { }
