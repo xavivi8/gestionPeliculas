@@ -44,4 +44,7 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
   3. Al elegir el tema yo uso el ```Purple/Green```
   4. A la pregunta ```Include the Angular animations module?``` elegimos la opción ```Include and enable animations```
 
+### Cookie Service 
+  1. El comando de instalación ```npm install ngx-cookie-service@16```
+
 
