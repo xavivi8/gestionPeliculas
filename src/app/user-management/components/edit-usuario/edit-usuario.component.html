@@ -1,1 +1,62 @@
-<p>edit-usuario works!</p>
+<div class="container">
+  <mat-card class="card">
+    <!-- Cabecera -->
+    <mat-card-header style="margin: 0 auto;">
+      <mat-card-title>Editar usuario</mat-card-title>
+    </mat-card-header>
+    <!-- Contenido -->
+    <form class="mat-dialog-content" [formGroup]="usuarioForm">
+
+      <mat-card-content style="margin: 0 auto;">
+        <div class="form">
+          <mat-form-field color="accent">
+            <input matInput placeholder="Correo electrónico" formControlName="usuario" name="usuario" required>
+          </mat-form-field>
+        </div>
+
+        <div class="form">
+          <mat-form-field color="accent">
+            <input matInput placeholder="Nombre público" formControlName="nombre_publico" name="nombre_publico"
+              required>
+          </mat-form-field>
+        </div>
+
+        <div class="form">
+          <mat-form-field color="accent">
+            <input matInput type="password" placeholder="Cambiar contraseña" formControlName="password" name="password">
+          </mat-form-field>
+        </div>
+
+        <div class="form">
+          <mat-form-field>
+            <mat-label>Rol</mat-label>
+            <mat-select formControlName="id_rol">
+              <mat-option *ngFor="let rol of roles" [value]="rol.id_rol">
+                {{rol.rol}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="form habilitado">
+          <mat-checkbox formControlName="habilitado">Usuario habilitado</mat-checkbox>
+        </div>
+
+        <div class="form">
+          <mat-form-field color="accent">
+            <textarea matInput placeholder="Observaciones" formControlName="observaciones"
+              name="observaciones"></textarea>
+          </mat-form-field>
+        </div>
+      </mat-card-content>
+      <!-- Acciones -->
+      <mat-card-actions style="margin: 0 auto;">
+        <button mat-button id="onSubmit" type="submit" [disabled]="!usuarioForm.valid"
+          (click)="confirmAdd()">Guardar</button>
+        <span class="spacer"></span>
+        <button mat-button id="onNoClick" (click)="onNoClick()" tabindex="-1">Cancelar</button>
+      </mat-card-actions>
+    </form>
+
+  </mat-card>
+</div>
