@@ -58,7 +58,7 @@
       <mat-card-content>
         <ng-container matColumnDef="actions">
           <th mat-header-cell *matHeaderCellDef>
-            <button id="addUsuario" mat-icon-button *ngIf="permises.add">
+            <button id="addUsuario" mat-icon-button *ngIf="permises.add" (click)="addUser()">
               <mat-icon>
                 add_circle
               </mat-icon>

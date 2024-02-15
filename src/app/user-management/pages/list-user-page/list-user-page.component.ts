@@ -11,6 +11,7 @@ import { UserService } from '../../service/user.service';
 import { DeleteUsuarioComponent } from '../../components/delete-usuario/delete-usuario.component';
 import { EditUsuarioComponent } from '../../components/edit-usuario/edit-usuario.component';
 import { firstValueFrom } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-list-user-page',
@@ -36,6 +37,7 @@ export class ListUserPageComponent implements OnInit {
     public dialog: MatDialog,
     private servicioUsuarios: UserService,
     private overlay: Overlay,
+    private router: Router,
     private matPaginatorIntl: MatPaginatorIntl // Agregar MatPaginatorIntl al constructor
   ) { }
 
@@ -92,6 +94,10 @@ export class ListUserPageComponent implements OnInit {
         (searchTerms.habilitado === 'todos' ? true : usuario.habilitado.indexOf(searchTerms.habilitado) !== -1);
     };
     return filterFunction;
+  }
+
+  addUser(){
+    this.router.navigate(['/user-management/add-user']);
   }
 
   onChanges(): void {
