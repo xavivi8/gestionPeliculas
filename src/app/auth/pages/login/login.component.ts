@@ -7,6 +7,7 @@ import { SharedService } from 'src/app/shared/services/shared.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthService } from '../../services/auth.service';
 import { HttpHeaders } from '@angular/common/http';
+import { CLOSE } from 'src/app/shared/messages';
 
 @Component({
   selector: 'app-login',
@@ -124,9 +125,9 @@ export class LoginComponent  implements OnInit{
           return;
 
         } else if (RESPONSE.data.valido === 0) {
-          this.snackBar.open('Usuario inhabilitado', 'Cerrar', {duration: 5000});
+          this.snackBar.open('Usuario inhabilitado', CLOSE, {duration: 5000});
         } else if (RESPONSE.data.valido === 1) {
-          this.snackBar.open('Usuario o contraseña incorrectas', 'Cerrar', {duration: 5000});
+          this.snackBar.open('Usuario o contraseña incorrectas', CLOSE, {duration: 5000});
         }
       }
     }
