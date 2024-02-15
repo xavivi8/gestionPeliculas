@@ -75,7 +75,7 @@ export class ListUserPageComponent implements OnInit {
 
   async deleteUsuario(usuario: Usuario) {
     const dialogRef = this.dialog.open(DeleteUsuarioComponent, { data: usuario, scrollStrategy: this.overlay.scrollStrategies.noop() });
-    const RESP = await dialogRef.afterClosed().toPromise();
+    const RESP = await firstValueFrom(dialogRef.afterClosed());
     if (RESP && RESP.ok) {
       this.servicioUsuarios.removeUsuario(RESP.data);
       this.dataSource.data = this.servicioUsuarios.usuarios;
