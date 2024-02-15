@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Pelicula } from '../../interfaces/peliculas.interfaces';
-import { PeliculaService } from '../../services/peliculas.service';
+import { PeliculasService } from '../../services/peliculas.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { switchMap } from 'rxjs';
 import { ResultadoID } from '../../interfaces/peliculas-id.interfaces';
@@ -15,7 +15,7 @@ export class DetallesPeliculaPageComponent implements OnInit {
   public pelicula: ResultadoID | undefined | null;
 
   constructor(
-    private peliculasService: PeliculaService,
+    private peliculasService: PeliculasService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
 

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { PeliculaService } from '../../services/peliculas.service';
+import { PeliculasService } from '../../services/peliculas.service';
 import { FormControl } from '@angular/forms';
 import { Pelicula } from '../../interfaces/peliculas.interfaces';
 
@@ -12,7 +12,7 @@ import { Pelicula } from '../../interfaces/peliculas.interfaces';
 export class SearchPageComponent implements OnInit{
 
   constructor(
-    private peliculasService: PeliculaService
+    private peliculasService: PeliculasService
   ){}
 
   ngOnInit(): void {

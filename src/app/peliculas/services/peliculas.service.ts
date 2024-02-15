@@ -10,7 +10,7 @@ import { ResultadoID } from '../interfaces/peliculas-id.interfaces';
 @Injectable({
   providedIn: 'root'
 })
-export class PeliculaService {
+export class PeliculasService {
   private peliculaSeleccionada: Pelicula | null = null;
   private urlFilm: string = URL_API_FILM;
 
