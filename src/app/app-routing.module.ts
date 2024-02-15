@@ -16,6 +16,10 @@ const routes: Routes = [
     loadChildren: () => import('./peliculas/peliculas.module').then( m => m.PeliculasModule)
 
   },
+  {
+    path: 'user-management',
+    loadChildren: () => import('./user-management/user-management.module').then( m => m.UserManagementModule)
+  },
   { path: '404', component: Error404PageComponent },
   { path: '', redirectTo: 'inicio', pathMatch: 'full' },
   { path: '**', redirectTo: '404' },
