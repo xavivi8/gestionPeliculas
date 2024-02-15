@@ -9,7 +9,7 @@ const ENDPOINT = 'usuario';
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
-  usuarios: Usuario[] | null = null;
+  usuarios: Usuario[] = [];
 
   constructor(
     private http: HttpClient,
