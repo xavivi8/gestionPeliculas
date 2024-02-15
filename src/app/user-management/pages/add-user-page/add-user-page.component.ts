@@ -1,12 +1,12 @@
 import { Component, Inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Rol } from '../../interfaces/rol.interface';
 import { RolsService } from '../../service/rols.service';
 import { UserService } from '../../service/user.service';
 import { firstValueFrom } from 'rxjs';
 import { Router } from '@angular/router';
+import { CLOSE, INVALID_FORM } from 'src/app/shared/messages';
 
 @Component({
   selector: 'app-add-user-page',
@@ -49,13 +49,13 @@ export class AddUserPageComponent {
 
       const RESP = await firstValueFrom(this.servicioUsuario.addUsuario(usuario));
       if (RESP && RESP.ok) {
-        this.snackBar.open(RESP.message || '', 'Cerrar', { duration: 5000 });
+        this.snackBar.open(RESP.message || '', CLOSE, { duration: 5000 });
         this.onNoClick();
       } else {
-        this.snackBar.open(RESP?.message || 'Error al agregar usuario', 'Cerrar', { duration: 5000 });
+        this.snackBar.open(RESP?.message || 'Error al agregar usuario', CLOSE, { duration: 5000 });
       }
     } else {
-      this.snackBar.open('Formulario inválido', 'Cerrar', { duration: 5000 });
+      this.snackBar.open(INVALID_FORM, CLOSE, { duration: 5000 });
     }
   }
 
