@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home-page',
@@ -6,6 +7,17 @@ import { Component } from '@angular/core';
   styles: [
   ]
 })
-export class HomePageComponent {
+export class HomePageComponent implements OnInit{
+  public menu = {label: 'Menú', icon: 'menu'}
 
+  public sidebarItems = [
+    { label: 'Control usuarios', icon: 'favorite', url: '/inicio' },
+  ]
+
+  constructor (
+    private router: Router
+  ){}
+  ngOnInit(): void {
+    //this.router.navigate(['/peliculas/search']);
+  }
 }
