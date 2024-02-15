@@ -11,7 +11,9 @@ export class HomePageComponent implements OnInit{
   public menu = {label: 'Menú', icon: 'menu'}
 
   public sidebarItems = [
-    { label: 'Control usuarios', icon: 'favorite', url: '/inicio' },
+    { label: 'Inicio', icon: 'home', url: '/inicio' },
+    { label: 'Listado usuarios', icon: 'list', url: './list' },
+    { label: 'Añadir usuario', icon: 'person_add', url: './add-user' }
   ]
 
   constructor (
