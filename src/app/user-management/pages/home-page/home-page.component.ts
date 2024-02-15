@@ -18,6 +18,6 @@ export class HomePageComponent implements OnInit{
     private router: Router
   ){}
   ngOnInit(): void {
-    //this.router.navigate(['/peliculas/search']);
+    this.router.navigate(['/user-management/list']);
   }
 }
