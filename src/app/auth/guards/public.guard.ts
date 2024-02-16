@@ -32,7 +32,7 @@ export const cantMatchGuard: CanMatchFn = (
   console.log('CanMatch');
   console.log({ route, segments });
 
-  return true;
+  return checkAuthStatus();
 }
 export const cantActivateGuard: CanActivateFn = (
   route: ActivatedRouteSnapshot,
@@ -41,5 +41,5 @@ export const cantActivateGuard: CanActivateFn = (
   console.log('CanActivate');
   console.log({ route, state });
 
-  return true;
+  return checkAuthStatus();
 }
