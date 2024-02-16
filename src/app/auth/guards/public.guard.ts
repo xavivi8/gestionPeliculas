@@ -1,3 +1,4 @@
+
 import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
 import { Observable, map } from 'rxjs';
@@ -6,7 +7,7 @@ import { AuthService } from '../services/auth.service';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthGuard implements CanActivate {
+export class PublicGuard implements CanActivate {
 
   constructor(private authService: AuthService, private router: Router) {}
 
@@ -16,22 +17,22 @@ export class AuthGuard implements CanActivate {
 
     const url: string = state.url;
 
-    // Aquí se puede usar uno de los métodos de isAuthenticated dependiendo de tus necesidades
+    // Verificar si el usuario está autenticado
     return this.authService.isAuthenticated(url).pipe(
       map((isAuthenticated: boolean) => {
         if (isAuthenticated) {
-          return true; // Si el usuario está autenticado, permite la navegación
+          // Si el usuario está autenticado, redirigir a '/inicio/search'
+          this.router.navigate(['/inicio/search']);
+          return false; // No permitir la navegación a la URL original
         } else {
-          // Si el usuario no está autenticado, redirige al inicio o a la página de búsqueda
-          this.router.navigate(['/auth/login']);
-          return false;
+          // Si el usuario no está autenticado, permitir la navegación
+          return true;
         }
       })
     );
   }
 }
-
-/* import { Observable, tap } from "rxjs";
+/* import { Observable, map, tap } from "rxjs";
 import { AuthService } from "../services/auth.service";
 import { inject } from "@angular/core";
 import { ActivatedRouteSnapshot, CanActivateFn, CanMatchFn, Route, Router, RouterStateSnapshot, UrlSegment } from "@angular/router";
@@ -44,14 +45,15 @@ const checkAuthStatus = (): Observable<boolean> => {
   return AUTHSERVICE.isAuthenticated(STATE.url).pipe(
     tap( isAuthenticated => console.log('Authenticated: ', isAuthenticated )),
     tap( isAuthenticated => {
-      if (!isAuthenticated) {
-        ROUTER.navigate(['/auth/login']);
+      if ( isAuthenticated ) {
+        ROUTER.navigate(['/inicio/search']);
       }
-    })
+    }),
+    map( isAuthenticated => !isAuthenticated )
   )
 };
 
-export const canMatchGuard: CanMatchFn = (
+export const cantMatchGuard: CanMatchFn = (
   route: Route,
   segments: UrlSegment[]
 ) => {
@@ -61,7 +63,7 @@ export const canMatchGuard: CanMatchFn = (
   return checkAuthStatus();
 }
 
-export const canActivateGuard: CanActivateFn = (
+export const cantActivateGuard: CanActivateFn = (
   route: ActivatedRouteSnapshot,
   state: RouterStateSnapshot
 ) => {
