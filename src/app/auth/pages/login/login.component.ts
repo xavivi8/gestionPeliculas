@@ -121,7 +121,7 @@ export class LoginComponent  implements OnInit{
             'Content-Type': 'application/json',
             Authorization: `Bearer ${RESPONSE.data.token}`
           });
-          this.router.navigate([`/${RESPONSE.data.accion}`]);
+          this.router.navigate([`/peliculas/search`]);
           return;
 
         } else if (RESPONSE.data.valido === 0) {

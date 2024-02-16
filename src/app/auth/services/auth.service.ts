@@ -1,12 +1,16 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ApiResponse } from '../interfaces/usuario.interfaces';
+import { ApiResponse, User } from '../interfaces/usuario.interfaces';
 import { URL_API } from 'src/environments/environments';
 import { SharedService } from 'src/app/shared/services/shared.service';
 import { CookieService } from 'ngx-cookie-service';
+import { Observable, catchError, map, of, tap } from 'rxjs';
 
 @Injectable({providedIn: 'root'})
 export class AuthService {
+
+  public user?: User;
+
 
   constructor(
     private http: HttpClient,
@@ -32,6 +36,24 @@ export class AuthService {
       });
     });
     return promise;
+  }
+
+  checkAuthentication():Observable<boolean> {
+
+
+    if (!localStorage.getItem('token')) return of(false); //no necesitamos operacion asincrona
+
+    const token = localStorage.getItem('token');
+    console.log("Hola"+localStorage.getItem('token'));
+    return this.http.get<User>(`${URL_API}/usuario.php`)
+      .pipe(
+        tap(user=>console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"+user)),
+        tap(user=>this.user=user),//tap: efecto secundario para almacenar el usuario
+        map(user=>!!user),//map: transformamos la salida, hacemos doble negación, negamos y negamos
+                          //Basicamente devolvemos true si hay un usuario
+                          //Es lo mismo que poner map ( user => user? true : false)
+        catchError(err=>of(false))//y si el backend devuelve error, es false
+      )
   }
 
   doLogout() {

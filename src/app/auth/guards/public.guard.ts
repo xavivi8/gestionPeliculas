@@ -1,75 +1,45 @@
 
-import { Injectable } from '@angular/core';
-import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
-import { Observable, map } from 'rxjs';
+import { inject } from '@angular/core';
+import { ActivatedRouteSnapshot, RouterStateSnapshot, Router, Route, CanMatchFn, UrlSegment, CanActivateFn } from '@angular/router';
+import { Observable, map, tap } from 'rxjs';
 import { AuthService } from '../services/auth.service';
 
-@Injectable({
-  providedIn: 'root'
-})
-export class PublicGuard implements CanActivate {
-
-  constructor(private authService: AuthService, private router: Router) {}
-
-  canActivate(
-    next: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-
-    const url: string = state.url;
-
-    // Verificar si el usuario está autenticado
-    return this.authService.isAuthenticated(url).pipe(
-      map((isAuthenticated: boolean) => {
-        if (isAuthenticated) {
-          // Si el usuario está autenticado, redirigir a '/inicio/search'
-          this.router.navigate(['/inicio/search']);
-          return false; // No permitir la navegación a la URL original
-        } else {
-          // Si el usuario no está autenticado, permitir la navegación
-          return true;
-        }
-      })
-    );
-  }
-}
-/* import { Observable, map, tap } from "rxjs";
-import { AuthService } from "../services/auth.service";
-import { inject } from "@angular/core";
-import { ActivatedRouteSnapshot, CanActivateFn, CanMatchFn, Route, Router, RouterStateSnapshot, UrlSegment } from "@angular/router";
-
 const checkAuthStatus = (): Observable<boolean> => {
-  const AUTHSERVICE: AuthService = inject(AuthService);
-  const ROUTER: Router = inject(Router);
-  const STATE: RouterStateSnapshot = inject(RouterStateSnapshot);
+  const authService: AuthService = inject(AuthService);
+  const router: Router = inject(Router);
 
-  return AUTHSERVICE.isAuthenticated(STATE.url).pipe(
-    tap( isAuthenticated => console.log('Authenticated: ', isAuthenticated )),
-    tap( isAuthenticated => {
-      if ( isAuthenticated ) {
-        ROUTER.navigate(['/inicio/search']);
-      }
-    }),
-    map( isAuthenticated => !isAuthenticated )
-  )
-};
+  return authService.checkAuthentication()
+    .pipe(
+      tap(isAutheticated => console.log('AuthenticatedPublic:', isAutheticated)),
+      tap(
+        isAutheticated => {
+          console.log("Prueba: "+isAutheticated);
+
+          if (isAutheticated) {
+            console.log("222222222222Prueba: ");
+            router.navigate(['peliculas/search'])
+          }
+        }
+      ),
+      map(isAuthenticated => !isAuthenticated) // Return the opposite of what we got back
+    )
+}
 
 export const cantMatchGuard: CanMatchFn = (
   route: Route,
   segments: UrlSegment[]
 ) => {
-  console.log(`CanMatch`)
-  console.log({ route, segments })
+  console.log('CanMatch');
+  console.log({ route, segments });
 
-  return checkAuthStatus();
+  return true;
 }
-
 export const cantActivateGuard: CanActivateFn = (
   route: ActivatedRouteSnapshot,
   state: RouterStateSnapshot
 ) => {
-  console.log("CanActivate");
-  console.log({ route, state })
+  console.log('CanActivate');
+  console.log({ route, state });
 
-  return checkAuthStatus();
+  return true;
 }
- */
