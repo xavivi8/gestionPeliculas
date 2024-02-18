@@ -10,13 +10,12 @@ const checkAuthStatus = (): Observable<boolean> => {
   return authService.checkAuthentication()
     .pipe(
       tap(isAutheticated => console.log('Authenticated:', isAutheticated)),
-      tap(
-        isAutheticated => {
+      tap( isAutheticated => {
           if (!isAutheticated) {
-            router.navigate(['auth/login'])
+            router.navigate(['/auth/login'])
           }
-        }
-      )
+      }),
+      //map(isAuthenticated => !isAuthenticated)
     )
 }
 

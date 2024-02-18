@@ -17,10 +17,9 @@ const checkAuthStatus = (): Observable<boolean> => {
 
           if (isAutheticated) {
             console.log("222222222222Prueba: ");
-            router.navigate(['peliculas/search'])
+            router.navigate(['/peliculas/search'])
           }
-        }
-      ),
+      }),
       map(isAuthenticated => !isAuthenticated) // Return the opposite of what we got back
     )
 }
