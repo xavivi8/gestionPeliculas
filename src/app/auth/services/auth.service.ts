@@ -41,7 +41,7 @@ export class AuthService {
   checkAuthentication():Observable<boolean> {
 
 
-    if (!localStorage.getItem('token')) return of(false); //no necesitamos operacion asincrona
+    if (!localStorage.getItem('token')) return of(false);
 
     const token = localStorage.getItem('token');
     console.log("Hola"+localStorage.getItem('token'));
