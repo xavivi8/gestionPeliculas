@@ -14,18 +14,18 @@ const routes: Routes = [
   {
     path: 'inicio',
     loadChildren: () => import('./shared/shared.module').then( m => m.SharedModule),
-    canActivate: [canMatchGuard],
+    //canActivate: [canMatchGuard],
   },
   {
     path: 'peliculas',
     loadChildren: () => import('./peliculas/peliculas.module').then( m => m.PeliculasModule),
-    canMatch: [canMatchGuard], //Anclamos la función del canMatch
-    canActivate: [canActivateGuard]
+    //canMatch: [canMatchGuard], //Anclamos la función del canMatch
+    //canActivate: [canActivateGuard]
   },
   {
     path: 'user-management',
     loadChildren: () => import('./user-management/user-management.module').then( m => m.UserManagementModule),
-    canActivate: [canMatchGuard]
+    //canActivate: [canMatchGuard]
   },
   { path: '404', component: Error404PageComponent },
   { path: '', redirectTo: 'inicio', pathMatch: 'full' },
