@@ -16,7 +16,7 @@ import { EmailValidationPipe } from './pipe/email-validation.pipe';
     CommonModule,
     AuthRoutingModule,
     MaterialModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   providers: [
     EmailValidationPipe

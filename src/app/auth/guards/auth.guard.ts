@@ -1,40 +1,43 @@
-import { inject } from '@angular/core';
-import { ActivatedRouteSnapshot, RouterStateSnapshot, Router, UrlSegment, Route, CanMatchFn, CanActivateFn } from '@angular/router';
-import { Observable, map, tap } from 'rxjs';
-import { AuthService } from '../services/auth.service';
+import { Injectable } from "@angular/core";
+import { CanMatchFn, Router, Route, UrlSegment, CanActivateFn, ActivatedRouteSnapshot, RouterStateSnapshot } from "@angular/router";
+import { Observable, tap } from "rxjs";
+import { AuthService } from "../services/auth.service";
 
-const checkAuthStatus = (): Observable<boolean> => {
-  const authService: AuthService = inject(AuthService);
-  const router: Router = inject(Router);
+@Injectable({ providedIn: 'root' })
+export class AuthGuard {
+  constructor(
+    private authService: AuthService,
+    private router: Router
+  ) {}
 
-  return authService.checkAuthentication()
-    .pipe(
-      tap(isAutheticated => console.log('Authenticated:', isAutheticated)),
-      tap( isAutheticated => {
-          if (!isAutheticated) {
-            router.navigate(['/auth/login'])
-          }
-      }),
-      //map(isAuthenticated => !isAuthenticated)
-    )
-}
+  private checkAuthStatus(url: string): Observable<boolean> {
+    return this.authService.isAuthenticated(url).pipe(
+      tap(isAuthenticated => {
+        console.log('Authenticated: ', isAuthenticated);
+        if (!isAuthenticated) {
+          this.router.navigate(['/auth/login']);
+        }
+      })
+    );
+  }
 
-export const canMatchGuard: CanMatchFn = (
-  route: Route,
-  segments: UrlSegment[]
-) => {
-  console.log('CanMatch');
-  console.log({ route, segments });
+  canMatchGuard: CanMatchFn = (
+    route: Route,
+    segments: UrlSegment[]
+  ) => {
+    console.log(`CanMatch`);
+    console.log({ route, segments });
+    const url = segments.map(seg => seg.path).join('/');
+    return this.checkAuthStatus(url);
+  }
 
-  return checkAuthStatus();
-}
-export const canActivateGuard: CanActivateFn = (
-  route: ActivatedRouteSnapshot,
-  state: RouterStateSnapshot
-) => {
-  console.log('CanActivate');
-  console.log({ route, state });
-
-  return checkAuthStatus();
+  canActivateGuard: CanActivateFn = (
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot
+  ) => {
+    console.log("CanActivate");
+    console.log({ route, state });
+    return this.checkAuthStatus(state.url);
+  }
 }
 

@@ -24,7 +24,21 @@ export class AuthService {
     return this.http.post<ApiResponse>(`${URL_API}/login.php`, body);
   }
 
-  public async isAuthenticated(url: string): Promise<boolean> {
+  /* ublic async isAuthenticated(url: string): Promise<boolean> {
+    try {
+      const rutaSeleccionada = url.substring(1).split('/')[0];
+      const response = await this.http
+        .get<ApiResponse>(`${URL_API}/check_usuarios.php?ruta=${rutaSeleccionada}`, { headers: this.commonService.getHeaders() })
+        .toPromise();
+
+      return response?.ok ?? true; // Si response.ok está definido, devuelve su valor; de lo contrario, devuelve false
+    } catch (error) {
+      console.error('Error al verificar la autenticación:', error);
+      return false; // Retorna false en caso de error
+    }
+  } */
+
+  /* public async isAuthenticated(url: string): Promise<boolean> {
 
     let rutaSeleccionada: string;
     const promise = new Promise<boolean>((resolve, reject) => {
@@ -35,7 +49,25 @@ export class AuthService {
       resolve(response.ok);
       });
     });
-    return promise;
+
+    return promise ?? false;
+  } */
+  public isAuthenticated(url: string): Observable<boolean> {
+    return new Observable<boolean>(observer => {
+      let rutaSeleccionada: string;
+      rutaSeleccionada = url.substring(1);
+      rutaSeleccionada = rutaSeleccionada.split('/')[0];
+
+      this.http.get<ApiResponse>(`${URL_API}/check_usuarios.php?ruta=${rutaSeleccionada}`, { headers: this.commonService.getHeaders() })
+        .pipe(
+          map((response: ApiResponse) => response.ok)
+        )
+        .subscribe({
+          next: (result: boolean) => observer.next(result),
+          error: (error: any) => observer.error(error),
+          complete: () => observer.complete()
+        });
+    });
   }
 
   checkAuthentication():Observable<boolean> {
@@ -44,10 +76,8 @@ export class AuthService {
     if (!localStorage.getItem('token')) return of(false);
 
     const token = localStorage.getItem('token');
-    console.log("Hola"+localStorage.getItem('token'));
     return this.http.get<User>(`${URL_API}/usuario.php`)
       .pipe(
-        tap(user=>console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"+user)),
         tap(user=>this.user=user),//tap: efecto secundario para almacenar el usuario
         map(user=>!!user),//map: transformamos la salida, hacemos doble negación, negamos y negamos
                           //Basicamente devolvemos true si hay un usuario

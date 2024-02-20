@@ -16,7 +16,8 @@ import { MatStepperModule } from '@angular/material/stepper';
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    MatStepperModule
+    MatStepperModule,
+
   ],
   providers: [],
   bootstrap: [AppComponent]
