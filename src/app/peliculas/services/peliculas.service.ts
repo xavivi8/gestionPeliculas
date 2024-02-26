@@ -1,9 +1,10 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
+import { catchError, map, tap } from 'rxjs/operators';
 import { URL_API, URL_API_FILM } from 'src/environments/environments';
 import { Pelicula, Resultado } from '../interfaces/peliculas.interfaces';
+import { ResultadoPeliFav } from '../interfaces/peliculas-fav.interfaces';
 import { SharedService } from '../../shared/services/shared.service';
 import { ResultadoID } from '../interfaces/peliculas-id.interfaces';
 import { PeliFav } from '../interfaces/peliculas-fav.interfaces';
@@ -12,7 +13,7 @@ import { PeliFav } from '../interfaces/peliculas-fav.interfaces';
   providedIn: 'root'
 })
 export class PeliculasService {
-  private peliculaSeleccionada: Pelicula | null = null;
+  private peliculaSeleccionada!: Pelicula | ResultadoID;
   private urlFilm: string = URL_API_FILM;
 
   constructor(
@@ -20,11 +21,11 @@ export class PeliculasService {
     private sharedService: SharedService
   ) { }
 
-  setPeliculaSeleccionada(pelicula: Pelicula) {
+  setPeliculaSeleccionada(pelicula: Pelicula | ResultadoID) {
     this.peliculaSeleccionada = pelicula;
   }
 
-  getPeliculaSeleccionada(): Pelicula | null {
+  getPeliculaSeleccionada(): Pelicula | ResultadoID {
     return this.peliculaSeleccionada;
   }
 
@@ -39,11 +40,11 @@ export class PeliculasService {
       );
   }
 
-  getFilmById(id: number): Observable<ResultadoID | undefined>{
+  getFilmById(id: number): Observable<ResultadoID>{
     return this.http.get<ResultadoID>(`${URL_API_FILM}movie/${id}`, { headers: this.sharedService.headersFilm }).pipe(
       catchError(error => {
         console.log('Error: ',error);
-        return of(undefined);
+        return of();
 
       })
     )
@@ -51,11 +52,11 @@ export class PeliculasService {
 
   /* Peliculas Favoritas */
 
-  getPeliculasFavoritas(usuario: string): Observable<PeliFav[]> {
-    return this.http.get<PeliFav[]>(`${URL_API}/peli_fav.php?usuario=${usuario}`, { headers: this.sharedService.headersSge}).pipe(
+  getPeliculasFavoritas(usuario: string): Observable<ResultadoPeliFav> {
+    return this.http.get<ResultadoPeliFav>(`${URL_API}/peli_fav.php?usuario=${usuario}`, { headers: this.sharedService.headersSge}).pipe(
       catchError(error => {
         console.log('Error: ',error);
-        return of([]);
+        return of();
 
       })
     );
@@ -71,6 +72,7 @@ export class PeliculasService {
 
   eliminarPeliFav(usuario: string, identificador: number): Observable<boolean> {
     return this.http.delete<any>(`${URL_API}/peli_fav.php?usuario=${usuario}&identificador=${identificador}`).pipe(
+      tap(response => console.log('Response:', response.data.identificador),),
       map(response => response.status === true),
       catchError(() => of(false))
     );
