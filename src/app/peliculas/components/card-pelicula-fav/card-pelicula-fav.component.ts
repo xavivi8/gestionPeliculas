@@ -10,7 +10,8 @@ import { Router } from '@angular/router';
   ]
 })
 export class CardPeliculaFavComponent {
-  fav:boolean = false;
+  private usuario: string = localStorage.getItem('usuario') || '';
+  fav:boolean = true;
   @Input()
   public pelicula!: ResultadoID;
 
@@ -24,13 +25,42 @@ export class CardPeliculaFavComponent {
   }
 
   addFav(){
-    this.fav = !this.fav
-    console.log(this.fav);
-
+   if (this.fav) {
+      // Si está en favoritos, lo eliminamos
+      this.eliminarPeliFav(this.pelicula.id);
+    } else {
+      // Si no está en favoritos, lo agregamos
+      this.agregarPeliFav(this.pelicula.id);
+    }
+    this.fav = !this.fav;
   }
 
   mas(){
     this.peliculasService.setPeliculaSeleccionada(this.pelicula);
     this.router.navigate([`./peliculas/datalles/${this.pelicula.id}`]);
   }
+
+  agregarPeliFav(identificador: number): void {
+
+    this.peliculasService.agregarPeliFav(this.usuario, identificador).subscribe(result => {
+      if (result) {
+        console.log('Película favorita agregada correctamente');
+        // Realizar alguna acción adicional si es necesario
+      } else {
+        console.error('Error al agregar la película favorita');
+      }
+    });
+  }
+
+  eliminarPeliFav(identificador: number): void {
+    this.peliculasService.eliminarPeliFav(this.usuario, identificador).subscribe(result => {
+      if (result) {
+        console.log('Película favorita eliminada correctamente');
+        // Realizar alguna acción adicional si es necesario
+      } else {
+        console.error('Error al eliminar la película favorita');
+      }
+    });
+  }
+
 }
