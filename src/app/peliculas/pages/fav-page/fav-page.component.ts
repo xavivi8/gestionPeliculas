@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PeliculasService } from '../../services/peliculas.service';
-import { PeliFav } from '../../interfaces/peliculas-fav.interfaces';
+import { PeliFav, ResultadoPeliFav } from '../../interfaces/peliculas-fav.interfaces';
 import { ResultadoID } from '../../interfaces/peliculas-id.interfaces';
 
 @Component({
@@ -17,17 +17,30 @@ export class FavPageComponent implements OnInit{
   ){}
 
   ngOnInit(): void {
-    this.getPeliculas();
-  }
+    this.peliculasService.getPeliculasFavoritas(localStorage.getItem('usuario') || '').subscribe((resultado: ResultadoPeliFav) => {
+      if(resultado.ok) { // Verificar si la respuesta fue exitosa
+        this.pelisFav = []; // Vaciar el arreglo pelisFav
+        this.pelisFav = [...resultado.data]; // Asignar los datos al arreglo pelisFav
+        console.log("Películas favoritas del usuario: this.pelisFav", this.pelisFav);
+        this.pelisFav.forEach(peli => {
+          console.log(peli);
 
-  getPeliculas(): void {
-    if(localStorage.getItem('usuario') !== null){
-      this.getPelisFavPorUsuario(localStorage.getItem('usuario') || '');
-    }
-
-    this.pelisFav.forEach(peli => {
-      console.log('Identificador de película favorita:', peli.identificador);
+          console.log('Identificador de película favoritas ->:' + peli.identificador);
+          this.peliculasService.getFilmById(peli.identificador).subscribe((result: ResultadoID | undefined) => {
+            if (result) {
+              this.peliculas.push(result);
+              console.log("Películas ", result);
+            } else {
+              console.error("La película no se encontró o no se pudo cargar correctamente");
+            }
+          });
+        });
+      } else {
+        console.error("Error al obtener las películas favoritas del usuario:", resultado.message);
+      }
     });
+
+
   }
 
   agregarPeliFav(usuario: string, identificador: number): void {
@@ -52,9 +65,5 @@ export class FavPageComponent implements OnInit{
     });
   }
 
-  getPelisFavPorUsuario(usuario: string): void {
-    this.peliculasService.getPeliculasFavoritas(usuario).subscribe((peliFav: PeliFav[]) => {
-      this.pelisFav = peliFav;
-    });
-  }
+
 }
