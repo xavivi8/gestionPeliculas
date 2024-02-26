@@ -22,24 +22,32 @@ export class FavPageComponent implements OnInit{
         this.pelisFav = []; // Vaciar el arreglo pelisFav
         this.pelisFav = [...resultado.data]; // Asignar los datos al arreglo pelisFav
         console.log("Películas favoritas del usuario: this.pelisFav", this.pelisFav);
-        this.pelisFav.forEach(peli => {
-          console.log(peli);
-
-          console.log('Identificador de película favoritas ->:' + peli.identificador);
-          this.peliculasService.getFilmById(peli.identificador).subscribe((result: ResultadoID | undefined) => {
-            if (result) {
-              this.peliculas.push(result);
-              console.log("Películas ", result);
-            } else {
-              console.error("La película no se encontró o no se pudo cargar correctamente");
-            }
-          });
-        });
+        this.getPeliculas();
       } else {
         console.error("Error al obtener las películas favoritas del usuario:", resultado.message);
       }
     });
 
+
+  }
+
+  getPeliculas(): void {
+
+    //console.log(this.pelisFav);
+
+    this.pelisFav.forEach(peli => {
+      console.log(peli);
+
+      console.log('Identificador de película favoritas ->:' + peli.identificador);
+      this.peliculasService.getFilmById(peli.identificador).subscribe((result: ResultadoID | undefined) => {
+        if (result) {
+          this.peliculas.push(result);
+          console.log("Películas ", result);
+        } else {
+          console.error("La película no se encontró o no se pudo cargar correctamente");
+        }
+      });
+    });
 
   }
 
