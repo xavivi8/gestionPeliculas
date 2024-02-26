@@ -11,6 +11,7 @@ import { CardPeliculaComponent } from './components/card-pelicula/card-pelicula.
 import { PeliculaImagePipe } from './pipe/pelicula-image.pipe';
 import { FechaFormatoPipe } from './pipe/fecha-formato.pipe';
 import { DetallesPeliculaPageComponent } from './pages/detalles-pelicula-page/detalles-pelicula-page.component';
+import { CardPeliculaFavComponent } from './components/card-pelicula-fav/card-pelicula-fav.component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { DetallesPeliculaPageComponent } from './pages/detalles-pelicula-page/de
     CardPeliculaComponent,
     PeliculaImagePipe,
     FechaFormatoPipe,
-    DetallesPeliculaPageComponent
+    DetallesPeliculaPageComponent,
+    CardPeliculaFavComponent
   ],
   imports: [
     CommonModule,
