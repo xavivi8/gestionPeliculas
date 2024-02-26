@@ -71,10 +71,12 @@ export class PeliculasService {
     );
   }
 
-  eliminarPeliFav(usuario: string, identificador: number): Observable<ResultadoPeliFav | boolean> {
-    return this.http.delete<ResultadoPeliFav>(`${URL_API}/peli_fav.php?usuario=${usuario}&identificador=${identificador}`, { headers: this.sharedService.headersSge}).pipe(
-      tap(response => console.log('Response:', response.data),),
-      /* map(response => response.status === true), */
+  eliminarPeliFav(usuario: string, identificador: number): Observable<boolean> {
+
+    const DATA = { usuario, identificador };
+    const HEADERS = { headers: this.sharedService.headersSge, body: DATA };
+    return this.http.post<any>(`${URL_API}/peli_fav.php`, null, HEADERS).pipe(
+      map(response => response.status === true),
       catchError(() => of(false))
     );
   }
