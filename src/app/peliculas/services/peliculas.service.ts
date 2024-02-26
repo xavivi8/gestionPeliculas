@@ -1,11 +1,12 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { catchError } from 'rxjs/operators';
-import { URL_API_FILM } from 'src/environments/environments';
+import { catchError, map } from 'rxjs/operators';
+import { URL_API, URL_API_FILM } from 'src/environments/environments';
 import { Pelicula, Resultado } from '../interfaces/peliculas.interfaces';
 import { SharedService } from '../../shared/services/shared.service';
 import { ResultadoID } from '../interfaces/peliculas-id.interfaces';
+import { PeliFav } from '../interfaces/peliculas-fav.interfaces';
 
 @Injectable({
   providedIn: 'root'
@@ -29,7 +30,7 @@ export class PeliculasService {
 
   getFilmByName(name: string): Observable<Resultado | undefined> {
 
-    return this.http.get<Resultado>(`${URL_API_FILM}search/movie?query=${name}&include_adult=false&language=es-ES&page=1`, { headers: this.sharedService.headersFilm })
+    return this.http.get<Resultado>(`${URL_API_FILM}search/movie?query=${name}&language=es-ES&page=1`, { headers: this.sharedService.headersFilm })
       .pipe(
         catchError(error => {
           console.error('Error:', error);
@@ -46,5 +47,32 @@ export class PeliculasService {
 
       })
     )
+  }
+
+  /* Peliculas Favoritas */
+
+  getPeliculasFavoritas(usuario: string): Observable<PeliFav[]> {
+    return this.http.get<PeliFav[]>(`${URL_API}/peli_fav.php?usuario=${usuario}`, { headers: this.sharedService.headersSge}).pipe(
+      catchError(error => {
+        console.log('Error: ',error);
+        return of([]);
+
+      })
+    );
+  }
+
+  agregarPeliFav(usuario: string, identificador: number): Observable<boolean> {
+    const data = { usuario, identificador };
+    return this.http.post<any>(`${URL_API}/peli_fav.php`, data).pipe(
+      map(response => response.status === true),
+      catchError(() => of(false))
+    );
+  }
+
+  eliminarPeliFav(usuario: string, identificador: number): Observable<boolean> {
+    return this.http.delete<any>(`${URL_API}/peli_fav.php?usuario=${usuario}&identificador=${identificador}`).pipe(
+      map(response => response.status === true),
+      catchError(() => of(false))
+    );
   }
 }

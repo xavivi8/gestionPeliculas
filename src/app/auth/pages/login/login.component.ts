@@ -117,6 +117,7 @@ export class LoginComponent  implements OnInit{
           localStorage.setItem('nombre_publico', RESPONSE.data.nombre_publico);
           localStorage.setItem('ultimaOpcion', RESPONSE.data.opcion);
           localStorage.setItem('ultimoGrupo', RESPONSE.data.grupo);
+          localStorage.setItem('id', RESPONSE.data.id_usuario);
           this.commonService.headersSge = new HttpHeaders({
             'Content-Type': 'application/json',
             Authorization: `Bearer ${RESPONSE.data.token}`

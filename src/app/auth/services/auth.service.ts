@@ -52,6 +52,12 @@ export class AuthService {
 
     return promise ?? false;
   } */
+
+  /**
+   * 
+   * @param url 
+   * @returns 
+   */
   public isAuthenticated(url: string): Observable<boolean> {
     return new Observable<boolean>(observer => {
       let rutaSeleccionada: string;
