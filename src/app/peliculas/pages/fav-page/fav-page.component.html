@@ -1,1 +1,3 @@
-<p>fav-page works!</p>
+<div *ngFor="let pelis of peliculas" style="max-width: 250px;" class="col-12 sm:col-4 md:col-3 xl:col-2">
+    <peliculas-card-pelicula-fav [pelicula]="pelis"></peliculas-card-pelicula-fav>
+</div>
