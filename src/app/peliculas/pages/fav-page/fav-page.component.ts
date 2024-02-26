@@ -10,6 +10,7 @@ import { ResultadoID } from '../../interfaces/peliculas-id.interfaces';
   ]
 })
 export class FavPageComponent implements OnInit{
+  private usuario: string = localStorage.getItem('usuario') || '';
   public pelisFav: PeliFav[] = [];
   public peliculas: ResultadoID[] = []
   constructor(
@@ -17,6 +18,7 @@ export class FavPageComponent implements OnInit{
   ){}
 
   ngOnInit(): void {
+    this.usuario = localStorage.getItem('usuario') || '';
     this.peliculasService.getPeliculasFavoritas(localStorage.getItem('usuario') || '').subscribe((resultado: ResultadoPeliFav) => {
       if(resultado.ok) { // Verificar si la respuesta fue exitosa
         this.pelisFav = []; // Vaciar el arreglo pelisFav
@@ -49,28 +51,6 @@ export class FavPageComponent implements OnInit{
       });
     });
 
-  }
-
-  agregarPeliFav(usuario: string, identificador: number): void {
-    this.peliculasService.agregarPeliFav(usuario, identificador).subscribe(result => {
-      if (result) {
-        console.log('Película favorita agregada correctamente');
-        // Realizar alguna acción adicional si es necesario
-      } else {
-        console.error('Error al agregar la película favorita');
-      }
-    });
-  }
-
-  eliminarPeliFav(usuario: string, identificador: number): void {
-    this.peliculasService.eliminarPeliFav(usuario, identificador).subscribe(result => {
-      if (result) {
-        console.log('Película favorita eliminada correctamente');
-        // Realizar alguna acción adicional si es necesario
-      } else {
-        console.error('Error al eliminar la película favorita');
-      }
-    });
   }
 
 
