@@ -1,0 +1,26 @@
+<mat-card style="max-width: 250px;">
+  <!-- Cabecera -->
+  <mat-card-header>
+    <mat-card-title>{{pelicula.title}}</mat-card-title>
+
+  </mat-card-header>
+
+  <img mat-card-image style="max-width: 200px; max-height: 300px; margin: 0 auto;"  [src]="pelicula.poster_path| imagePelicula">
+
+  <mat-card-content>
+    <h4>{{pelicula.release_date | fechaFormato}}</h4>
+
+    <p>Valoración: {{ pelicula.vote_average }}</p>
+
+    <p *ngIf="pelicula.adult">Para adultos</p>
+    <p *ngIf="!pelicula.adult">Para todos los públicos</p>
+  </mat-card-content>
+
+  <mat-card-actions>
+    <button mat-raised-button color="primary" (click)="mas()">Más</button>
+    <span class="spacer"></span>
+    <button mat-icon-button [color]="!fav ? '' : 'warn'" (click)="addFav()">
+      <mat-icon>favorite</mat-icon>
+    </button>
+  </mat-card-actions>
+</mat-card>
