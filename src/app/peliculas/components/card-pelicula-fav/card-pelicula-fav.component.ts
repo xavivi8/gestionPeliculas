@@ -25,8 +25,11 @@ export class CardPeliculaFavComponent {
   }
 
   addFav(){
+
    if (this.fav) {
       // Si está en favoritos, lo eliminamos
+
+
       this.eliminarPeliFav(this.pelicula.id);
     } else {
       // Si no está en favoritos, lo agregamos
@@ -53,6 +56,8 @@ export class CardPeliculaFavComponent {
   }
 
   eliminarPeliFav(identificador: number): void {
+    console.log(identificador);
+   console.log(this.usuario);
     this.peliculasService.eliminarPeliFav(this.usuario, identificador).subscribe(result => {
       if (result) {
         console.log('Película favorita eliminada correctamente');
