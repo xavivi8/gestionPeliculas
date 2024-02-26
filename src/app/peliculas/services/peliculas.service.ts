@@ -70,10 +70,10 @@ export class PeliculasService {
     );
   }
 
-  eliminarPeliFav(usuario: string, identificador: number): Observable<boolean> {
-    return this.http.delete<any>(`${URL_API}/peli_fav.php?usuario=${usuario}&identificador=${identificador}`).pipe(
-      tap(response => console.log('Response:', response.data.identificador),),
-      map(response => response.status === true),
+  eliminarPeliFav(usuario: string, identificador: number): Observable<ResultadoPeliFav | boolean> {
+    return this.http.delete<ResultadoPeliFav>(`${URL_API}/peli_fav.php?usuario=${usuario}&identificador=${identificador}`).pipe(
+      tap(response => console.log('Response:', response.data),),
+      /* map(response => response.status === true), */
       catchError(() => of(false))
     );
   }
