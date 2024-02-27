@@ -1,22 +1,24 @@
 <!-- detalles-pelicula-page.component.html -->
-<div class="grid" *ngIf="pelicula">
-  <mat-card class="col-12 sm:col-6">
-    <mat-card-header>
-      <mat-card-title>{{pelicula.title}}</mat-card-title>
-      <mat-card-subtitle>{{pelicula.release_date| fechaFormato}}</mat-card-subtitle>
-    </mat-card-header>
-    <img mat-card-image style="max-width: 47%; max-height: 47%;" [src]="pelicula.poster_path| imagePelicula">
-  </mat-card>
 
-  <mat-card class="col-12 sm:col-6">
-    <mat-card-content>
-      <p>{{ pelicula.overview }}</p>
-      <p>Popularidad: {{ pelicula.popularity }}</p>
-      <p>Idioma Original: {{ pelicula.original_language }}</p>
-      <p>Promedio de Votos: {{ pelicula.vote_average }}</p>
-      <p>Total de Votos: {{ pelicula.vote_count }}</p>
-      <p *ngIf="pelicula.adult">Para adultos</p>
-      <p *ngIf="!pelicula.adult">Para todos los públicos</p>
-    </mat-card-content>
+<div *ngIf="pelicula" style="display: flex; margin: 0 auto;">
+  <mat-card style="flex-grow: 1;">
+    <div style="display: flex;">
+      <div style="flex-grow: 1;">
+        <mat-card-header>
+          <mat-card-title>{{pelicula.title}}</mat-card-title>
+          <mat-card-subtitle>{{pelicula.release_date| fechaFormato}}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <p>{{ pelicula.overview }}</p>
+          <p>Popularidad: {{ pelicula.popularity }}</p>
+          <p>Idioma Original: {{ pelicula.original_language }}</p>
+          <p>Promedio de Votos: {{ pelicula.vote_average }}</p>
+          <p>Total de Votos: {{ pelicula.vote_count }}</p>
+          <p *ngIf="pelicula.adult">Para adultos</p>
+          <p *ngIf="!pelicula.adult">Para todos los públicos</p>
+        </mat-card-content>
+      </div>
+      <img mat-card-image style="max-width: 500px; max-height: 700px; flex-shrink: 0;" [src]="pelicula.poster_path| imagePelicula">
+    </div>
   </mat-card>
 </div>
