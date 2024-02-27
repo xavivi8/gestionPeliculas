@@ -47,6 +47,7 @@ export class SharedService {
     body.append('user', usuario as string);
     this.cookieService.deleteAll();
     localStorage.clear();
+    location.reload();
     return this.http.post(`${URL_API}/logout.php`, body);
   }
 
