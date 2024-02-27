@@ -14,7 +14,7 @@ export class HomePageComponent {
   public sidebarItems = [
     { label: 'Peliculas', icon: 'movie', url: '/peliculas' },
     { label: 'Control usuarios', icon: 'person', url: '/user-management' },
-    { label: 'Login', icon: 'login', url: '/auth' }
+    /* { label: 'Login', icon: 'login', url: '/auth' } */
   ]
 
   constructor (
