@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from "@angular/router";
+import { SharedService } from "../services/shared.service";
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,7 @@ import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from
 export class NoLoginGuard implements CanActivate {
 
   constructor(
-    public auth: AuthService,
+    public auth: SharedService,
     public router: Router
   ) { }
 
