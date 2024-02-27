@@ -18,10 +18,14 @@ export class DetallesPeliculaPageComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private router: Router,
 
-  ) {
-    // Definir valores predefinidos para la película
+  ) {}
 
-  }
+  /**
+   * Método del ciclo de vida de Angular llamado después de que Angular haya inicializado todas las propiedades del componente.
+   * Obtiene la película seleccionada para mostrar detalles basados en el ID de la película proporcionado en la ruta.
+   * Navega a la página de búsqueda de películas si la película no se encuentra.
+   * @returns {void}
+   */
   ngOnInit(): void {
     /* this.pelicula = this.peliculasService.getPeliculaSeleccionada(); */
     this.activatedRoute.params.pipe(

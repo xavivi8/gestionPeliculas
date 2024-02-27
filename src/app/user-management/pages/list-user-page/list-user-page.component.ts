@@ -41,10 +41,18 @@ export class ListUserPageComponent implements OnInit {
     private matPaginatorIntl: MatPaginatorIntl // Agregar MatPaginatorIntl al constructor
   ) { }
 
+  /**
+   * Método del ciclo de vida de Angular llamado después de que Angular haya
+   * inicializado todas las propiedades del componente.
+   * Obtiene la lista de usuarios al inicializar.
+   */
   ngOnInit() {
     this.getUsuarios();
   }
 
+  /**
+   * Método para obtener la lista de usuarios.
+   */
   async getUsuarios() {
     const RESPONSE = await firstValueFrom(this.servicioUsuarios.getAllUsuarios());
     if (RESPONSE !== undefined) {
@@ -61,6 +69,10 @@ export class ListUserPageComponent implements OnInit {
 
   }
 
+  /**
+   * Método para abrir el diálogo de edición de usuario.
+   * @param {Usuario} usuario Usuario a editar
+   */
   async editUsuario(usuario: Usuario) {
 
     const dialogRef = this.dialog.open(EditUsuarioComponent, {
@@ -77,6 +89,10 @@ export class ListUserPageComponent implements OnInit {
     this.reloadPage();
   }
 
+  /**
+   * Método para abrir el diálogo de eliminación de usuario.
+   * @param {Usuario} usuario Usuario a eliminar
+   */
   async deleteUsuario(usuario: Usuario) {
     const dialogRef = this.dialog.open(DeleteUsuarioComponent, { data: usuario, scrollStrategy: this.overlay.scrollStrategies.noop() });
     const RESP = await firstValueFrom(dialogRef.afterClosed());
@@ -87,6 +103,9 @@ export class ListUserPageComponent implements OnInit {
     this.reloadPage();
   }
 
+  /**
+   * Método para crear el filtro de búsqueda.
+   */
   createFilter(): (usuario: any, filter: string) => boolean {
     const filterFunction = (usuario: any, filter: string): boolean => {
       const searchTerms = JSON.parse(filter);
@@ -99,10 +118,16 @@ export class ListUserPageComponent implements OnInit {
     return filterFunction;
   }
 
+  /**
+   * Método para redirigir a la página de añadir usuario.
+   */
   addUser(){
     this.router.navigate(['/user-management/add-user']);
   }
 
+   /**
+   * Método para suscribirse a los cambios en los filtros de búsqueda.
+   */
   onChanges(): void {
     this.idFilter.valueChanges.subscribe(value => {
       this.filterValues.id_usuario = value;
@@ -123,6 +148,7 @@ export class ListUserPageComponent implements OnInit {
       this.filterValues.rol = value;
       this.dataSource.filter = JSON.stringify(this.filterValues);
     });
+    this.reloadPage();
   }
 
   buscarHabilitados(event: any) {
@@ -132,7 +158,11 @@ export class ListUserPageComponent implements OnInit {
     this.dataSource.filter = JSON.stringify(this.filterValues);
   }
 
-  reloadPage() {
-    this.router.navigateByUrl('/user-management/list', { skipLocationChange: true });
+  /**
+   * Recarga la página actual.
+   * @returns {void}
+   */
+  reloadPage(): void {
+    location.reload();
   }
 }

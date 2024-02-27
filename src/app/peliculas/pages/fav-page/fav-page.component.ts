@@ -17,6 +17,11 @@ export class FavPageComponent implements OnInit{
     private peliculasService: PeliculasService
   ){}
 
+  /**
+   * Método del ciclo de vida de Angular llamado después de que Angular haya inicializado todas las propiedades del componente.
+   * Obtiene las películas favoritas del usuario y carga los detalles de cada película.
+   * @returns {void}
+   */
   ngOnInit(): void {
     this.usuario = localStorage.getItem('usuario') || '';
     this.peliculasService.getPeliculasFavoritas(localStorage.getItem('usuario') || '').subscribe((resultado: ResultadoPeliFav) => {
@@ -33,6 +38,10 @@ export class FavPageComponent implements OnInit{
 
   }
 
+  /**
+   * Obtiene los detalles de cada película favorita y los almacena en el arreglo de películas.
+   * @returns {void}
+   */
   getPeliculas(): void {
 
     //console.log(this.pelisFav);

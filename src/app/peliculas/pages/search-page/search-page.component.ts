@@ -10,11 +10,18 @@ import { Pelicula } from '../../interfaces/peliculas.interfaces';
   ]
 })
 export class SearchPageComponent implements OnInit{
+  public searchInput = new FormControl('');
+  public peliculas: Pelicula[] = [];
 
   constructor(
     private peliculasService: PeliculasService
   ){}
 
+  /**
+   * Método del ciclo de vida de Angular llamado después de que Angular haya inicializado todas las propiedades del componente.
+   * Realiza una búsqueda inicial de películas al cargar la página.
+   * @returns {void}
+   */
   ngOnInit(): void {
     this.peliculasService.getFilmByName("Peliculas").subscribe( root => {
       if (root == undefined) return;
@@ -23,9 +30,12 @@ export class SearchPageComponent implements OnInit{
     })
   }
 
-  public searchInput = new FormControl('');
-  public peliculas: Pelicula[] = []
 
+
+  /**
+   * Método para buscar películas basadas en el término de búsqueda proporcionado.
+   * @returns {void}
+   */
   buscarPelicula(){
     this.searchInput.addAsyncValidators;
     const value: string = this.searchInput.value || '';

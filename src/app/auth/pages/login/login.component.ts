@@ -15,7 +15,7 @@ import { CLOSE } from 'src/app/shared/messages';
   styles: [
   ]
 })
-export class LoginComponent  implements OnInit{
+export class LoginComponent implements OnInit {
   showContent: boolean = false;
   isLinear = false;
   isLoading = false;
@@ -45,6 +45,12 @@ export class LoginComponent  implements OnInit{
     });
   }
 
+  /**
+   * Método del ciclo de vida de Angular llamado después de que Angular haya
+   * inicializado todas las propiedades del componente.
+   * Inicializa el componente y establece un temporizador para mostrar el contenido
+   * después de un tiempo de espera y suscribe al cambio del campo de correo electrónico.
+   */
   ngOnInit(): void {
     setTimeout(() => {
       this.showContent = true;
@@ -58,22 +64,33 @@ export class LoginComponent  implements OnInit{
 
   }
 
+  /**
+   * Maneja el cambio en la entrada de correo electrónico.
+   * Verifica la validez del correo electrónico ingresado y actualiza el formulario de inicio de sesión en consecuencia.
+   * @returns {void}
+   */
   handleEmailInputChange() {
     if (this.emailForm.invalid) return;
-    console.log("Email: "+this.emailForm.get('email')?.value);
+    console.log("Email: " + this.emailForm.get('email')?.value);
 
     this.isValidEmail = this.emailValidationPipe.transform(this.emailForm.value.email);
     console.log(this.isValidEmail);
 
-    if(this.isValidEmail === true){
+    if (this.isValidEmail === true) {
       this.elEmail = this.emailForm.value.email || '';
       this.loginForm.get('username')?.setValue(this.elEmail);
       console.log(this.isValidEmail);
-      console.log("Email "+this.emailForm.get('email')?.value);
+      console.log("Email " + this.emailForm.get('email')?.value);
     }
 
   }
 
+  /**
+   * Maneja el evento de envío del formulario.
+   * Avanza al siguiente paso si el correo electrónico es válido.
+   * @param {MatStepper} stepper El componente MatStepper para la navegación entre pasos.
+   * @returns {void}
+   */
   onSubmit(stepper: MatStepper) {
     if (this.emailForm.invalid) return;
 
@@ -89,6 +106,10 @@ export class LoginComponent  implements OnInit{
     }
   }
 
+  /**
+   * Método asincrónico para realizar el proceso de inicio de sesión.
+   * @returns {void}
+   */
   async acceder() {
 
     setTimeout(() => {
@@ -104,14 +125,14 @@ export class LoginComponent  implements OnInit{
       console.log(data);
 
       const RESPONSE = await this.authService.doLogin(data).toPromise();
-        console.log(  RESPONSE);
-        if (RESPONSE === undefined) return;
+      console.log(RESPONSE);
+      if (RESPONSE === undefined) return;
       if (RESPONSE.ok) {
         if (RESPONSE.data.token) {
           // this.cookieService.set('token', RESPONSE.data.token);
           console.log('ya he puesto el token');
           localStorage.setItem('token', RESPONSE.data.token);
-          console.log('token'+RESPONSE.data.token);
+          console.log('token' + RESPONSE.data.token);
 
           localStorage.setItem('usuario', RESPONSE.data.usuario);
           localStorage.setItem('nombre_publico', RESPONSE.data.nombre_publico);
@@ -126,16 +147,20 @@ export class LoginComponent  implements OnInit{
           return;
 
         } else if (RESPONSE.data.valido === 0) {
-          this.snackBar.open('Usuario inhabilitado', CLOSE, {duration: 5000});
+          this.snackBar.open('Usuario inhabilitado', CLOSE, { duration: 5000 });
         } else if (RESPONSE.data.valido === 1) {
-          this.snackBar.open('Usuario o contraseña incorrectas', CLOSE, {duration: 5000});
+          this.snackBar.open('Usuario o contraseña incorrectas', CLOSE, { duration: 5000 });
         }
       }
     }
     this.reloadPage();
   }
 
-  reloadPage() {
-    this.router.navigateByUrl('/auth/login', { skipLocationChange: true });
+  /**
+   * Recarga la página actual.
+   * @returns {void}
+   */
+  reloadPage(): void {
+    location.reload();
   }
 }

@@ -21,10 +21,21 @@ export class HomePageComponent implements OnInit{
     private router: Router,
     private sharedService: SharedService,
   ){}
+
+  /**
+   * Método del ciclo de vida de Angular llamado después de que Angular haya inicializado todas las propiedades del componente.
+   * Navega a la página de búsqueda de películas.
+   * @returns {void}
+   */
   ngOnInit(): void {
     this.router.navigate(['/peliculas/search']);
   }
 
+  /**
+   * Método para cerrar sesión.
+   * Llama al método de cierre de sesión del servicio compartido.
+   * @returns {void}
+   */
   logout(){
     this.sharedService.doLogout()
   }

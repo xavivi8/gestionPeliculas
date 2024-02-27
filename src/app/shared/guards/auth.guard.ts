@@ -6,6 +6,9 @@ import { SharedService } from "../services/shared.service";
 @Injectable({
   providedIn: 'root'
 })
+/**
+ * Guardia de ruta para proteger las rutas que requieren autenticación.
+ */
 export class AuthGuard implements CanActivate {
 
   constructor(
@@ -13,6 +16,12 @@ export class AuthGuard implements CanActivate {
     public router: Router
   ){ }
 
+  /**
+   * Método que determina si una ruta puede ser activada.
+   * @param {ActivatedRouteSnapshot} route La instantánea de la ruta actual.
+   * @param {RouterStateSnapshot} state El estado de la ruta actual.
+   * @returns {Promise<boolean>} Una promesa que resuelve a true si la ruta puede ser activada, false de lo contrario.
+   */
   async canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<boolean> {
     const response = await this.sharedService.isAuthenticated(state.url);
 

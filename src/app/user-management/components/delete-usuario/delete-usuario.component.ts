@@ -21,6 +21,10 @@ export class DeleteUsuarioComponent implements OnInit {
   ngOnInit() {
   }
 
+  /**
+   * Método asincrónico para eliminar un usuario.
+   * Realiza la solicitud para eliminar el usuario y muestra un mensaje de éxito o error.
+   */
   async deleteUser() {
     const RESP = await firstValueFrom(this.servicioUsuario.deleteUsuario(this.usuario));
     if (RESP && RESP.ok) {
@@ -31,6 +35,9 @@ export class DeleteUsuarioComponent implements OnInit {
     }
   }
 
+  /**
+   * Metodo para cerrar el dialog
+   */
   onNoClick() {
     this.dialogRef.close({ ok: false });
   }

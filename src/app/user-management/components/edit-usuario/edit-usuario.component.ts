@@ -25,6 +25,11 @@ export class EditUsuarioComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public usuario: Usuario,
   ) { }
 
+  /**
+   * Método del ciclo de vida de Angular llamado después de que Angular haya
+   * inicializado todas las propiedades del componente.
+   * Inicializa el formulario de usuario y obtiene la lista de roles disponibles.
+   */
   ngOnInit() {
 
     this.usuarioForm = new FormGroup({
@@ -40,6 +45,10 @@ export class EditUsuarioComponent implements OnInit {
     this.getRoles();
   }
 
+  /**
+   * Método asincrónico para obtener la lista de roles disponibles.
+   * Asigna la lista de roles al arreglo `roles`.
+   */
   async getRoles() {
     const RESPONSE = await this.servicioRoles.getAllRoles().toPromise();
     if (RESPONSE && RESPONSE.ok) {
@@ -47,6 +56,10 @@ export class EditUsuarioComponent implements OnInit {
     }
   }
 
+  /**
+   * Método asincrónico para confirmar la edición del usuario.
+   * Realiza la solicitud para editar el usuario y muestra un mensaje de éxito o error.
+   */
   async confirmAdd() {
     if (this.usuarioForm.valid) {
       const usuario = this.usuarioForm.value;
@@ -67,7 +80,9 @@ export class EditUsuarioComponent implements OnInit {
     }
   }
 
-
+  /**
+   * Método para cerrar el dialog
+   */
   onNoClick(): void {
     this.dialogRef.close({ ok: false });
 

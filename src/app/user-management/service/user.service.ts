@@ -16,15 +16,30 @@ export class UserService {
     private commonService: SharedService
   ) { }
 
+  /**
+   * Obtiene todos los usuarios desde la API.
+   * @returns {Observable<ApiResponse>} Un observable de ApiResponse.
+   */
   getAllUsuarios() {
     return this.http.get<ApiResponse>(`${URL_API}/${ENDPOINT}.php`, { headers: this.commonService.headersSge });
   }
 
+  /**
+   * Agrega un nuevo usuario a la API.
+   * @param {Usuario} usuario El usuario a agregar.
+   * @returns {Observable<ApiResponse>} Un observable de ApiResponse.
+   */
   addUsuario(usuario: Usuario) {
     const body = JSON.stringify(usuario);
     return this.http.post<ApiResponse>(`${URL_API}/${ENDPOINT}.php`, body, { headers: this.commonService.headersSge });
   }
 
+  /**
+   * Edita un usuario existente en la API.
+   * @param {Usuario} usuario El usuario a editar.
+   * @param {string} route La ruta opcional para la solicitud.
+   * @returns {Observable<ApiResponse>} Un observable de ApiResponse.
+   */
   editUsuario(usuario: Usuario, route?: string) {
     const body = JSON.stringify(usuario);
 
@@ -37,10 +52,19 @@ export class UserService {
     return this.http.put<ApiResponse>(`${URL_API}/${ENDPOINT}.php${route}`, body, { headers: this.commonService.headersSge });
   }
 
+  /**
+   * Elimina un usuario de la API.
+   * @param {Usuario} usuario El usuario a eliminar.
+   * @returns {Observable<ApiResponse>} Un observable de ApiResponse.
+   */
   deleteUsuario(usuario: Usuario) {
     return this.http.delete<ApiResponse>(`${URL_API}/${ENDPOINT}.php?id=${usuario.id_usuario}`, { headers: this.commonService.headersSge });
   }
 
+  /**
+   * Elimina un usuario del array local de usuarios.
+   * @param {number} idUser El ID del usuario a eliminar.
+   */
   removeUsuario(idUser: number) {
     if (this.usuarios !== null) {
       this.usuarios = this.usuarios.filter(usuario => {
@@ -52,6 +76,10 @@ export class UserService {
 
   }
 
+  /**
+   * Actualiza un usuario en el array local de usuarios.
+   * @param {Usuario} usuario El usuario a actualizar.
+   */
   updateUsuario(usuario: Usuario) {
     let index = null;
     if (this.usuarios !== null) {

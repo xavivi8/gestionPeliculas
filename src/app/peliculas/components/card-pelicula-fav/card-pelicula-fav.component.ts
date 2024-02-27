@@ -20,10 +20,20 @@ export class CardPeliculaFavComponent {
     private router: Router
   ) { }
 
+  /**
+   * Método del ciclo de vida de Angular llamado después de que Angular haya inicializado todas las propiedades del componente.
+   * Verifica si la película existe.
+   * @returns {void}
+   * @throws Error - Si la película no existe.
+   */
   ngOnInit(): void {
     if (!this.pelicula) throw new Error('Pelicula no existe');
   }
 
+  /**
+   * Agrega o elimina la película de la lista de favoritos dependiendo de su estado actual.
+   * @returns {void}
+   */
   addFav(){
 
    if (this.fav) {
@@ -38,11 +48,21 @@ export class CardPeliculaFavComponent {
     this.fav = !this.fav;
   }
 
+  /**
+   * Navega a la página de detalles de la película seleccionada.
+   * Establece la película seleccionada en el servicio de películas antes de la navegación.
+   * @returns {void}
+   */
   mas(){
     this.peliculasService.setPeliculaSeleccionada(this.pelicula);
     this.router.navigate([`./peliculas/datalles/${this.pelicula.id}`]);
   }
 
+  /**
+   * Agrega la película actual a la lista de películas favoritas del usuario.
+   * @param {number} identificador - El id de la película.
+   * @returns {void}
+   */
   agregarPeliFav(identificador: number): void {
 
     this.peliculasService.agregarPeliFav(this.usuario, identificador).subscribe(result => {
@@ -55,6 +75,11 @@ export class CardPeliculaFavComponent {
     });
   }
 
+  /**
+   * Elimina la película actual de la lista de películas favoritas del usuario.
+   * @param {number} identificador - El id de la película.
+   * @returns {void}
+   */
   eliminarPeliFav(identificador: number): void {
     console.log(identificador);
    console.log(this.usuario);

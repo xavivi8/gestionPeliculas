@@ -25,6 +25,10 @@ export class SharedService {
     });
   }
 
+  /**
+   * Método para obtener los encabezados HTTP.
+   * @returns {HttpHeaders} Encabezados HTTP con el token de autenticación almacenado en el local storage.
+   */
   getHeaders() {
     return new HttpHeaders({
       'Content-Type': 'application/json',
@@ -32,6 +36,11 @@ export class SharedService {
     });
   }
 
+  /**
+   * Función para realizar la acción de cierre de sesión.
+   * Elimina todas las cookies y limpia el local storage antes de realizar la solicitud de logout.
+   * @returns {Observable} Observable para la solicitud de logout.
+   */
   doLogout() {
     const body = new FormData();
     const usuario = localStorage.getItem('usuario');
@@ -41,6 +50,11 @@ export class SharedService {
     return this.http.post(`${URL_API}/logout.php`, body);
   }
 
+  /**
+   * Función asincrónica para verificar si el usuario está logueado.
+   * Utiliza una solicitud HTTP para comprobar la autenticación del usuario.
+   * @returns {Promise<boolean>} Promise que resuelve a un booleano indicando si el usuario está logueado o no.
+   */
   public async isLoged(): Promise<boolean> {
     const promise = new Promise<boolean>((resolve, reject) => {
       this.http.get<ApiResponse>(`${URL_API}/check_usuarios.php?ruta=inicio`, { headers: this.headersSge })
@@ -52,6 +66,12 @@ export class SharedService {
     return promise;
   }
 
+  /**
+   * Función asincrónica para verificar si el usuario está autenticado para acceder a una ruta específica.
+   * Utiliza una solicitud HTTP para comprobar la autenticación del usuario basada en la URL proporcionada.
+   * @param {string} url URL de la ruta para la cual se verifica la autenticación.
+   * @returns {Promise<boolean>} Promise que resuelve a un booleano indicando si el usuario está autenticado o no para acceder a la ruta.
+   */
   public async isAuthenticated(url: string): Promise<boolean> {
     let rutaSeleccionada: string;
     const promise = new Promise<boolean>((resolve, reject) => {

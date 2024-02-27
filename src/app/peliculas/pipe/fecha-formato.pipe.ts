@@ -4,7 +4,16 @@ import { Pipe, PipeTransform } from '@angular/core';
   name: 'fechaFormato'
 })
 
+/**
+ * Clase que define el Pipe para formatear una fecha en 'YYYY-MM-DD' a 'D de mes de Año'.
+ */
 export class FechaFormatoPipe implements PipeTransform {
+  /**
+   * Transforma una fecha en formato 'YYYY-MM-DD' en una cadena con el formato 'D de mes de Año'.
+   * Si la fecha es indefinida, devuelve 'Sin fecha de estreno'.
+   * @param fecha La fecha en formato 'YYYY-MM-DD' a formatear.
+   * @returns La fecha formateada como 'D de mes de Año'.
+   */
   transform(fecha: string | undefined): string {
     if (fecha === undefined) {
       return 'Sin fecha de estreno';

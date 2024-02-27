@@ -22,6 +22,11 @@ export class HomePageComponent {
     private sharedService: SharedService,
   ){}
 
+  /**
+   * Método para realizar la acción de cierre de sesión.
+   * Utiliza el servicio SharedService para realizar el logout.
+   * @returns {void}
+   */
   logout(){
     this.sharedService.doLogout()
   }

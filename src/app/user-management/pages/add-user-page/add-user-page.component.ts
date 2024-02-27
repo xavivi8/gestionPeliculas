@@ -24,6 +24,11 @@ export class AddUserPageComponent {
     private router: Router,
   ) { }
 
+  /**
+   * Método del ciclo de vida de Angular llamado después de que Angular haya
+   * inicializado todas las propiedades del componente.
+   * Inicializa el formulario de usuario y obtiene la lista de roles disponibles.
+   */
   ngOnInit() {
     this.usuarioForm = new FormGroup({
       usuario: new FormControl(null, [Validators.required, Validators.email]),
@@ -36,6 +41,10 @@ export class AddUserPageComponent {
     this.getRoles();
   }
 
+  /**
+   * Método asincrónico para obtener la lista de roles disponibles.
+   * Asigna la lista de roles al arreglo `roles`.
+   */
   async getRoles() {
     const RESPONSE = await firstValueFrom(this.servicioRoles.getAllRoles());
     if (RESPONSE && RESPONSE.ok) {
@@ -43,6 +52,10 @@ export class AddUserPageComponent {
     }
   }
 
+  /**
+   * Método asincrónico para confirmar la adición de un nuevo usuario.
+   * Realiza la solicitud para agregar el usuario y muestra un mensaje de éxito o error.
+   */
   async confirmAdd() {
     if (this.usuarioForm.valid) {
       const usuario = this.usuarioForm.value;
@@ -59,7 +72,9 @@ export class AddUserPageComponent {
     }
   }
 
-
+  /**
+   * Método para cerrar el dialog
+   */
   onNoClick(): void {
     this.router.navigate(['/user-management/list']);
   }
