@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Pelicula } from '../../interfaces/peliculas.interfaces';
 import { Router } from '@angular/router';
 import { PeliculasService } from '../../services/peliculas.service';
+import { PeliFav, ResultadoPeliFav } from '../../interfaces/peliculas-fav.interfaces';
 
 @Component({
   selector: 'peliculas-card-pelicula',
@@ -12,6 +13,7 @@ import { PeliculasService } from '../../services/peliculas.service';
 export class CardPeliculaComponent implements OnInit {
   private usuario: string = localStorage.getItem('usuario') || '';
   fav:boolean = false;
+  public pelisFav: PeliFav[] = [];
   @Input()
   public pelicula!: Pelicula;
 
@@ -28,6 +30,24 @@ export class CardPeliculaComponent implements OnInit {
    */
   ngOnInit(): void {
     if (!this.pelicula) throw new Error('Pelicula no existe');
+
+    /* Coger las peliculas favoritas */
+
+    this.usuario = localStorage.getItem('usuario') || '';
+    this.peliculasService.getPeliculasFavoritas(localStorage.getItem('usuario') || '').subscribe((resultado: ResultadoPeliFav) => {
+      if(resultado.ok) { // Verificar si la respuesta fue exitosa
+        this.pelisFav = []; // Vaciar el arreglo pelisFav
+        this.pelisFav = [...resultado.data]; // Asignar los datos al arreglo pelisFav
+        console.log("Películas favoritas del usuario: this.pelisFav", this.pelisFav);
+        this.fav = this.buscarPeliFav();
+      } else {
+        console.error("Error al obtener las películas favoritas del usuario:", resultado.message);
+      }
+    });
+  }
+
+  buscarPeliFav(): boolean {
+    return this.pelisFav.some(peli => peli.identificador === this.pelicula.id);
   }
 
   /**
