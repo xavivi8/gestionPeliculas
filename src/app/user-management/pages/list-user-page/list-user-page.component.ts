@@ -148,7 +148,7 @@ export class ListUserPageComponent implements OnInit {
       this.filterValues.rol = value;
       this.dataSource.filter = JSON.stringify(this.filterValues);
     });
-    this.reloadPage();
+
   }
 
   buscarHabilitados(event: any) {
