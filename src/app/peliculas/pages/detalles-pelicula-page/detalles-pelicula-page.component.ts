@@ -8,8 +8,7 @@ import { ResultadoID } from '../../interfaces/peliculas-id.interfaces';
 @Component({
   selector: 'app-detalles-pelicula-page',
   templateUrl: './detalles-pelicula-page.component.html',
-  styles: [
-  ]
+  styleUrls: ['./detalles-pelicula-page.component.css']
 })
 export class DetallesPeliculaPageComponent implements OnInit {
   public pelicula: ResultadoID | undefined | null;
