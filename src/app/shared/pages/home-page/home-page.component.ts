@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { SharedService } from '../../services/shared.service';
 
 @Component({
   selector: 'app-home-page',
@@ -17,6 +18,11 @@ export class HomePageComponent {
   ]
 
   constructor (
-    private router: Router
+    private router: Router,
+    private sharedService: SharedService,
   ){}
+
+  logout(){
+    this.sharedService.doLogout()
+  }
 }
