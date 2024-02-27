@@ -17,6 +17,11 @@
           <p *ngIf="pelicula.adult">Para adultos</p>
           <p *ngIf="!pelicula.adult">Para todos los públicos</p>
         </mat-card-content>
+        <mat-card-actions>
+          <button mat-icon-button [color]="!fav ? '' : 'warn'" (click)="addFav()">
+            <mat-icon>favorite</mat-icon>
+          </button>
+        </mat-card-actions>
       </div>
       <img mat-card-image style="max-width: 500px; max-height: 700px; flex-shrink: 0;" [src]="pelicula.poster_path| imagePelicula">
     </div>
