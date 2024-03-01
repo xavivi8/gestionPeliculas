@@ -2,6 +2,8 @@ import { Component, Input } from '@angular/core';
 import { ResultadoID } from '../../interfaces/peliculas-id.interfaces';
 import { PeliculasService } from '../../services/peliculas.service';
 import { Router } from '@angular/router';
+import { CLOSE } from 'src/app/shared/messages';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'peliculas-card-pelicula-fav',
@@ -17,7 +19,8 @@ export class CardPeliculaFavComponent {
 
   constructor(
     private peliculasService: PeliculasService,
-    private router: Router
+    private router: Router,
+    private snackBar: MatSnackBar,
   ) { }
 
   /**
@@ -41,9 +44,11 @@ export class CardPeliculaFavComponent {
 
 
       this.eliminarPeliFav(this.pelicula.id);
+      this.snackBar.open('Película eliminada de favoritos', CLOSE, { duration: 5000 });
     } else {
       // Si no está en favoritos, lo agregamos
       this.agregarPeliFav(this.pelicula.id);
+      this.snackBar.open('Película agregada a favoritos', CLOSE, { duration: 5000 });
     }
     this.fav = !this.fav;
   }
