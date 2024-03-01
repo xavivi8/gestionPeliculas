@@ -29,6 +29,7 @@ export class PermiseGuard implements CanActivate {
     if (!response) {
       // Si el usuario no tiene permisos de administrador, redirigirlo a la página de error 404 ('./404')
       this.router.navigate(['./404']);
+      return false;
     }
     return true;
   }
