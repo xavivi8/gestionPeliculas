@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { ResultadoID } from '../../interfaces/peliculas-id.interfaces';
 import { PeliculasService } from '../../services/peliculas.service';
 import { Router } from '@angular/router';
-import { CLOSE } from 'src/app/shared/messages';
+import { CLOSE } from 'src/app/shared/interfaces/messages';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({

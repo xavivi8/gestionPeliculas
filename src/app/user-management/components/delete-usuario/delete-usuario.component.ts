@@ -4,7 +4,7 @@ import { UserService } from '../../service/user.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { firstValueFrom } from 'rxjs';
-import { CLOSE } from 'src/app/shared/messages';
+import { CLOSE } from 'src/app/shared/interfaces/messages';
 
 @Component({
   selector: 'app-delete-usuario',

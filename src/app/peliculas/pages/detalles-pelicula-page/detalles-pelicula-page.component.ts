@@ -6,7 +6,7 @@ import { switchMap } from 'rxjs';
 import { ResultadoID } from '../../interfaces/peliculas-id.interfaces';
 import { PeliFav, ResultadoPeliFav } from '../../interfaces/peliculas-fav.interfaces';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { CLOSE } from 'src/app/shared/messages';
+import { CLOSE } from 'src/app/shared/interfaces/messages';
 
 @Component({
   selector: 'app-detalles-pelicula-page',

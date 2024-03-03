@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
@@ -7,7 +7,6 @@ import { Pelicula, Resultado } from '../interfaces/peliculas.interfaces';
 import { ResultadoPeliFav } from '../interfaces/peliculas-fav.interfaces';
 import { SharedService } from '../../shared/services/shared.service';
 import { ResultadoID } from '../interfaces/peliculas-id.interfaces';
-import { PeliFav } from '../interfaces/peliculas-fav.interfaces';
 
 @Injectable({
   providedIn: 'root'

@@ -6,7 +6,7 @@ import { RolsService } from '../../service/rols.service';
 import { UserService } from '../../service/user.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Usuario } from '../../interfaces/usuario.interface';
-import { CLOSE, INVALID_FORM } from 'src/app/shared/messages';
+import { CLOSE, INVALID_FORM } from 'src/app/shared/interfaces/messages';
 
 @Component({
   selector: 'app-edit-usuario',

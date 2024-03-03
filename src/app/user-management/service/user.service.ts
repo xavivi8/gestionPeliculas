@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { Usuario } from '../interfaces/usuario.interface';
 import { HttpClient } from '@angular/common/http';
 import { SharedService } from 'src/app/shared/services/shared.service';
-import { ApiResponse } from 'src/app/auth/interfaces/usuario.interfaces';
 import { URL_API } from 'src/environments/environments';
+import { ApiResponse } from 'src/app/shared/interfaces/api-response';
 
 const ENDPOINT = 'usuario';
 

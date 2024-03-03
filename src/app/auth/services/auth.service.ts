@@ -1,10 +1,11 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ApiResponse, User } from '../interfaces/usuario.interfaces';
+import { User } from '../interfaces/usuario.interfaces';
 import { URL_API } from 'src/environments/environments';
 import { SharedService } from 'src/app/shared/services/shared.service';
 import { CookieService } from 'ngx-cookie-service';
 import { Observable, catchError, map, of, tap } from 'rxjs';
+import { ApiResponse } from 'src/app/shared/interfaces/api-response';
 
 @Injectable({providedIn: 'root'})
 /**

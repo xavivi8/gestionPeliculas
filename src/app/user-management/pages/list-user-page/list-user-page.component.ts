@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Permises } from 'src/app/auth/interfaces/usuario.interfaces';
 import { Usuario } from '../../interfaces/usuario.interface';
 import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
@@ -12,6 +11,7 @@ import { DeleteUsuarioComponent } from '../../components/delete-usuario/delete-u
 import { EditUsuarioComponent } from '../../components/edit-usuario/edit-usuario.component';
 import { firstValueFrom } from 'rxjs';
 import { Router } from '@angular/router';
+import { Permises } from 'src/app/shared/interfaces/api-response';
 
 @Component({
   selector: 'app-list-user-page',

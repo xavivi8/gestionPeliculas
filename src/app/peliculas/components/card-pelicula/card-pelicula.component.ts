@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { PeliculasService } from '../../services/peliculas.service';
 import { PeliFav, ResultadoPeliFav } from '../../interfaces/peliculas-fav.interfaces';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { CLOSE } from 'src/app/shared/messages';
+import { CLOSE } from 'src/app/shared/interfaces/messages';
 
 @Component({
   selector: 'peliculas-card-pelicula',

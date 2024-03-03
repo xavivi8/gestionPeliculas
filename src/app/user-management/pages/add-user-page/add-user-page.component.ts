@@ -6,7 +6,7 @@ import { RolsService } from '../../service/rols.service';
 import { UserService } from '../../service/user.service';
 import { firstValueFrom } from 'rxjs';
 import { Router } from '@angular/router';
-import { CLOSE, INVALID_FORM } from 'src/app/shared/messages';
+import { CLOSE, INVALID_FORM } from 'src/app/shared/interfaces/messages';
 
 @Component({
   selector: 'app-add-user-page',

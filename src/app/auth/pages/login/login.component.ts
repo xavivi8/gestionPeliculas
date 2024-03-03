@@ -7,7 +7,7 @@ import { SharedService } from 'src/app/shared/services/shared.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthService } from '../../services/auth.service';
 import { HttpHeaders } from '@angular/common/http';
-import { CLOSE } from 'src/app/shared/messages';
+import { CLOSE } from 'src/app/shared/interfaces/messages';
 
 @Component({
   selector: 'app-login',
