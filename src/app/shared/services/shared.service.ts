@@ -1,8 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
-import { ApiResponse } from 'src/app/auth/interfaces/usuario.interfaces';
 import { URL_API } from 'src/environments/environments';
+import { ApiResponse } from '../interfaces/api-response';
 
 @Injectable({ providedIn: 'root' })
 export class SharedService {
