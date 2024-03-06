@@ -11,8 +11,8 @@ export class FechaFormatoPipe implements PipeTransform {
   /**
    * Transforma una fecha en formato 'YYYY-MM-DD' en una cadena con el formato 'D de mes de Año'.
    * Si la fecha es indefinida, devuelve 'Sin fecha de estreno'.
-   * @param fecha La fecha en formato 'YYYY-MM-DD' a formatear.
-   * @returns La fecha formateada como 'D de mes de Año'.
+   * @param {string | undefined} fecha La fecha en formato 'YYYY-MM-DD' a formatear.
+   * @returns {string} La fecha formateada como 'D de mes de Año'.
    */
   transform(fecha: string | undefined): string {
     if (fecha === undefined) {
