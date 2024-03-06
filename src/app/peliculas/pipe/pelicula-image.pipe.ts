@@ -13,7 +13,7 @@ export class PeliculaImagePipe  implements PipeTransform {
    * @param {string | null} value La URL de la imagen de la película.
    * @returns La URL completa de la imagen de la película.
    */
-  transform(value : string | null): string {
+  transform(value : string | null | undefined): string {
       if(value?.endsWith("null")){
         console.log('noimg')
         return '/assets/no-image.jpg';
