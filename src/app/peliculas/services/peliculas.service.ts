@@ -109,12 +109,12 @@ export class PeliculasService {
    * @returns {Observable<boolean>} Un Observable que indica si la operación fue exitosa.
    */
   eliminarPeliFav(usuario: string, identificador: number): Observable<boolean> {
-    const DATA = { usuario, identificador };
-    const OPTIONS = { headers: this.sharedService.headersSge, body: DATA };
+    const OPTIONS = { headers: this.sharedService.headersSge };
+    const url = `${URL_API}/peli_fav.php?usuario=${encodeURIComponent(usuario)}&identificador=${identificador}`;
 
-    return this.http.delete<any>(`${URL_API}/peli_fav.php`, OPTIONS).pipe(
-      map(response => response.status === true),
-      catchError(() => of(false))
-    );
+  return this.http.delete<any>(url, OPTIONS).pipe(
+    map(response => response.status === true),
+    catchError(() => of(false))
+  );
   }
 }
